@@ -134,6 +134,33 @@
   .sig-card p{font-size:12.5px;color:var(--ink-2);line-height:1.5}
   .sig-card .src{font-size:10.5px;color:var(--ink-3);font-family:var(--mono);margin-top:9px}
 
+  /* ---------- MERCADO: abas + produtos + oferta ---------- */
+  .mtabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px;border-bottom:1px solid var(--line-soft);padding-bottom:14px}
+  .mtab{background:var(--panel);border:1px solid var(--line);color:var(--ink-2);font-family:var(--display);font-weight:600;font-size:13px;padding:9px 18px;border-radius:10px;cursor:pointer;transition:.15s}
+  .mtab:hover{border-color:var(--violet);color:var(--ink)}
+  .mtab.on{background:linear-gradient(120deg,rgba(156,123,230,.22),rgba(47,184,206,.12));border-color:var(--violet);color:var(--ink);box-shadow:0 4px 16px -8px var(--violet)}
+  .prods{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
+  .prod{background:var(--panel);border:1px solid var(--line-soft);border-radius:13px;padding:16px 14px;cursor:pointer;transition:.15s;position:relative}
+  .prod:hover{border-color:var(--violet);transform:translateY(-3px);box-shadow:0 10px 26px -14px var(--violet)}
+  .prod .pn{font-family:var(--display);font-size:13px;font-weight:600;line-height:1.3;min-height:34px}
+  .prod .pp{font-family:var(--mono);font-size:18px;font-weight:600;margin-top:10px;letter-spacing:-.02em}
+  .prod .pt{font-family:var(--mono);font-size:11.5px;margin-top:3px}
+  .prod .pt.up{color:var(--green)}.prod .pt.down{color:var(--red)}
+  .prod .pgo{margin-top:12px;padding-top:11px;border-top:1px solid var(--line-soft);font-size:10.5px;color:var(--violet);font-family:var(--mono);letter-spacing:.03em}
+  .ostep{display:flex;gap:12px;margin-top:16px}
+  .ostep .on{width:26px;height:26px;flex:0 0 auto;border-radius:50%;display:grid;place-items:center;background:rgba(156,123,230,.16);border:1px solid var(--violet);color:#c3aef0;font-family:var(--mono);font-size:12px;font-weight:600}
+  .ostep .ob{flex:1}
+  .ostep h4{font-family:var(--display);font-size:13px;font-weight:600;margin:3px 0 8px}
+  .ocard{background:var(--panel);border:1px solid var(--line-soft);border-radius:10px;padding:12px 13px;font-size:12.5px;color:var(--ink-2)}
+  .ocard b{color:var(--ink)}
+  .orow{display:flex;justify-content:space-between;gap:10px;padding:4px 0;font-family:var(--mono);font-size:11.5px}
+  .orow span:first-child{color:var(--ink-3)}.orow span:last-child{color:var(--ink)}
+  .clist .cl{display:flex;justify-content:space-between;gap:10px;padding:8px 0;border-top:1px solid var(--line-soft);font-size:12px}
+  .clist .cl:first-child{border-top:none}
+  .clist .cl span:last-child{color:var(--ink-3);font-family:var(--mono);font-size:10.5px}
+  .osuccess{background:rgba(72,180,124,.12);border:1px solid rgba(72,180,124,.4);border-radius:10px;padding:16px;text-align:center;color:#7fd6a5;font-family:var(--display);font-weight:600;font-size:14px;display:flex;flex-direction:column;gap:5px}
+  .osuccess span{color:var(--ink-3);font-family:var(--sans);font-weight:400;font-size:11.5px}
+
   /* ---------- INTAKE ---------- */
   .intake-grid{display:grid;grid-template-columns:400px 1fr;gap:20px;align-items:start}
   .form{background:var(--panel);border:1px solid var(--line-soft);border-radius:14px;padding:20px}
@@ -177,8 +204,8 @@
   .dnote{background:var(--panel);border:1px solid var(--line-soft);border-radius:10px;padding:14px;margin-top:18px;font-size:12.5px;color:var(--ink-2);line-height:1.55}
   .dnote b{color:var(--ink)}
 
-  @media(max-width:1080px){.kpis{grid-template-columns:repeat(3,1fr)}.grid2,.signals,.intake-grid{grid-template-columns:1fr}.agents{grid-template-columns:repeat(2,1fr)}}
-  @media(max-width:720px){.app{grid-template-columns:1fr}.rail{position:static;height:auto}.main{padding:18px}.kpis{grid-template-columns:repeat(2,1fr)}.agents{grid-template-columns:1fr}}
+  @media(max-width:1080px){.kpis{grid-template-columns:repeat(3,1fr)}.grid2,.signals,.intake-grid{grid-template-columns:1fr}.agents{grid-template-columns:repeat(2,1fr)}.prods{grid-template-columns:repeat(3,1fr)}}
+  @media(max-width:720px){.app{grid-template-columns:1fr}.rail{position:static;height:auto}.main{padding:18px}.kpis{grid-template-columns:repeat(2,1fr)}.agents{grid-template-columns:1fr}.prods{grid-template-columns:repeat(2,1fr)}}
 </style>
 </head>
 <body>
@@ -246,6 +273,7 @@ const ICONS={
   clipboard:'<rect x="5" y="4.5" width="14" height="16.5" rx="2"/><path d="M9 4.5h6v3H9z"/><path d="M8.5 13l2.2 2.2L15 11"/>',
   badge:'<circle cx="12" cy="9" r="5"/><path d="M9 13l-1 8 4-2 4 2-1-8"/>',
   folder:'<path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>',
+  cycle:'<path d="M20 12a8 8 0 1 1-2.4-5.7"/><path d="M20 4v4h-4"/>',
 };
 function avatar(ic,color){return `<div class="avatar" style="--ac:${color}"><svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="${color}" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">${ICONS[ic]||ICONS.grid}</svg></div>`;}
 function starRow(r){const pct=Math.max(0,Math.min(5,r))/5*100;return `<div class="stars"><span class="bg">★★★★★</span><span class="fg" style="width:${pct}%">★★★★★</span></div>`;}
@@ -263,6 +291,9 @@ const AGENTS=[
   {s:'fin',name:'Predição de margem FOB',tier:'b',ready:30,fn:'Prevê margem por operação (mercado × produto × rota) para priorizar negócios.',src:'ERP (estruturado)',needs:'Custo real rateado confiável. Núcleo da Trilha B.'},
   {s:'fin',name:'Custo logístico por container',tier:'b',ready:35,fn:'Rateia e prevê o custo logístico por container, rota e armador.',src:'ERP + planilha',needs:'Estrutura de custos padronizada. Requer fundação.'},
   {s:'fin',name:'Exposição cambial',tier:'b',ready:15,fn:'Consolida exposição em moeda por carteira e simula cenários de câmbio.',src:'ERP + mercado',needs:'Integração de cotações e posição financeira.'},
+  {s:'fin',name:'Ciclo financeiro',tier:'b',ready:35,fn:'Acompanha o ciclo financeiro da operação: prazos de recebimento, pagamento e necessidade de capital de giro.',src:'ERP financeiro',needs:'Contas a pagar/receber estruturadas e conciliadas.'},
+  {s:'fin',name:'Termos de pagamento',tier:'b',ready:40,fn:'Sugere e valida termos de pagamento por cliente e operação (à vista, carta de crédito, prazo).',src:'CRM + ERP',needs:'Histórico de condições por cliente padronizado.'},
+  {s:'fin',name:'Análise interna de crédito',tier:'b',ready:30,fn:'Avalia o risco de crédito do cliente a partir do histórico interno de pagamentos e exposição.',src:'ERP financeiro + histórico',needs:'Base de inadimplência e exposição por cliente confiável.'},
 
   {s:'ope',name:'Previsão de transit time',tier:'b',ready:40,fn:'Estima prazo de chegada por rota e armador. Alimenta a promessa de prazo ao cliente.',src:'ERP + planilha de embarque',needs:'Datas e armador padronizados. Depende da fundação de dados.'},
   {s:'ope',name:'Alerta de demurrage',tier:'a',ready:80,fn:'Sinaliza risco de estadia/demurrage lendo prazos livres em e-mail e planilha.',src:'E-mail + planilha',needs:'Opera sobre o bruto; ganha precisão com dado estruturado.'},
@@ -287,6 +318,9 @@ const AMETA={
   'Predição de margem FOB':{ic:'chart',stars:2.5},
   'Custo logístico por container':{ic:'box',stars:2.5},
   'Exposição cambial':{ic:'coin',stars:1.5},
+  'Ciclo financeiro':{ic:'cycle',stars:2.5},
+  'Termos de pagamento':{ic:'doc',stars:3},
+  'Análise interna de crédito':{ic:'target',stars:2.5},
   'Previsão de transit time':{ic:'clock',stars:3},
   'Alerta de demurrage':{ic:'alert',stars:4},
   'Monitor de cadeia fria (reefer)':{ic:'thermo',stars:2},
@@ -312,20 +346,62 @@ const KPIS=[
   {lab:'Ocupação de container',val:'91',unit:'%',d:'estável',dir:'flat',cls:''},
   {lab:'Custo log. / container',val:'4.380',unit:'US$',d:'+1,7%',dir:'down',cls:'bad'},
 ];
-const MKPIS=[
-  {lab:'Boi gordo',val:'242',unit:'R$/@',d:'+1,4%',dir:'up',cls:''},
-  {lab:'USD / BRL',val:'5,38',unit:'',d:'+0,6%',dir:'up',cls:'good'},
-  {lab:'USD / CNY',val:'7,21',unit:'',d:'-0,2%',dir:'flat',cls:''},
-  {lab:'Frete reefer Santos–China',val:'3.950',unit:'US$',d:'+4,2%',dir:'down',cls:'bad'},
-  {lab:'Farinha de peixe',val:'1.680',unit:'US$/t',d:'+2,1%',dir:'up',cls:'warn'},
-  {lab:'Frango exportação',val:'1.920',unit:'US$/t',d:'+0,8%',dir:'up',cls:'good'},
-];
-const SIGNALS=[
-  {t:'China amplia lista de plantas habilitadas',imp:'pos',lab:'oportunidade',p:'Novas habilitações abrem janela para aumentar volume de frango e suíno no destino asiático.',src:'GACC · há 2 dias'},
-  {t:'Frete spot reefer sobe na rota Ásia',imp:'neg',lab:'custo ↑',p:'Alta na tarifa spot pressiona o custo logístico por container e reduz margem FOB nas próximas semanas.',src:'Índice de frete · hoje'},
-  {t:'Ramadã se aproxima no Oriente Médio',imp:'neu',lab:'sazonalidade',p:'Demanda por proteína halal tende a subir; antecipar oferta e habilitação de plantas para o período.',src:'Calendário · em 6 semanas'},
-  {t:'Real se desvaloriza frente ao dólar',imp:'pos',lab:'competitividade',p:'Câmbio mais alto melhora a competitividade do FOB brasileiro e amplia a margem em US$.',src:'Mercado · hoje'},
-];
+const MARKETCATS={
+  meat:{label:'Meat',line:[4650,4700,4680,4720,4780,4760,4820,4850],lineLabel:'Dianteiro bovino · US$/t · 8 meses',
+    kpis:[{lab:'Dianteiro bovino',val:'4.850',unit:'US$/t',d:'+2,3%',dir:'up',cls:'good'},{lab:'Frango coxa/sobre',val:'2.180',unit:'US$/t',d:'+1,1%',dir:'up',cls:''},{lab:'Pernil suíno',val:'3.020',unit:'US$/t',d:'-0,6%',dir:'down',cls:'warn'},{lab:'Boi gordo',val:'242',unit:'R$/@',d:'+1,4%',dir:'up',cls:''}],
+    products:[
+      {name:'Dianteiro bovino congelado',price:'US$ 4.850/t',trend:'+2,3%',supplier:{name:'Frigorífico Boi Sul',country:'BR',price:'US$ 4.520/t',lead:'12 dias'}},
+      {name:'Cortes traseiros bovinos',price:'US$ 6.900/t',trend:'+1,8%',supplier:{name:'JBFrio Exportadora',country:'BR',price:'US$ 6.400/t',lead:'14 dias'}},
+      {name:'Coxa e sobrecoxa de frango',price:'US$ 2.180/t',trend:'+1,1%',supplier:{name:'AvesMar',country:'BR',price:'US$ 1.980/t',lead:'10 dias'}},
+      {name:'Peito de frango griller',price:'US$ 2.640/t',trend:'+0,9%',supplier:{name:'Sulave',country:'BR',price:'US$ 2.410/t',lead:'11 dias'}},
+      {name:'Pernil suíno sem osso',price:'US$ 3.020/t',trend:'-0,6%',supplier:{name:'Suíno Vale',country:'BR',price:'US$ 2.820/t',lead:'13 dias'}}],
+    clients:[{name:'Qingdao Foods',country:'China',last:'há 3 semanas'},{name:'Al Rahma Trading',country:'EAU',last:'há 1 mês'},{name:'Hong Kong Meat Co.',country:'Hong Kong',last:'há 12 dias'},{name:'Cairo Import Group',country:'Egito',last:'há 2 meses'}],
+    signals:[{t:'China amplia habilitação de plantas de bovino',imp:'pos',lab:'oportunidade',p:'Novas plantas liberadas ampliam a janela de exportação de dianteiro e traseiro.',src:'GACC · há 2 dias'},{t:'Custo de ração pressiona oferta de frango',imp:'neu',lab:'atenção',p:'Alta do farelo de soja eleva o custo e pode comprimir margem no frango.',src:'Mercado · hoje'}]},
+
+  seafood:{label:'Seafood',line:[3200,3250,3280,3300,3350,3360,3390,3400],lineLabel:'Filé de tilápia · US$/t · 8 meses',
+    kpis:[{lab:'Filé de tilápia',val:'3.400',unit:'US$/t',d:'+1,9%',dir:'up',cls:'good'},{lab:'Camarão vannamei',val:'6.100',unit:'US$/t',d:'+3,2%',dir:'up',cls:'good'},{lab:'Sardinha congelada',val:'1.250',unit:'US$/t',d:'-0,4%',dir:'down',cls:''},{lab:'Frete reefer Ásia',val:'3.950',unit:'US$',d:'+4,2%',dir:'down',cls:'bad'}],
+    products:[
+      {name:'Filé de tilápia congelado',price:'US$ 3.400/t',trend:'+1,9%',supplier:{name:'Tilápia Brasil',country:'BR',price:'US$ 3.100/t',lead:'10 dias'}},
+      {name:'Camarão vannamei',price:'US$ 6.100/t',trend:'+3,2%',supplier:{name:'Camarão Nordeste',country:'BR',price:'US$ 5.600/t',lead:'12 dias'}},
+      {name:'Sardinha congelada',price:'US$ 1.250/t',trend:'-0,4%',supplier:{name:'Pesca Litoral',country:'BR',price:'US$ 1.120/t',lead:'9 dias'}},
+      {name:'Polvo congelado',price:'US$ 8.200/t',trend:'+2,1%',supplier:{name:'Oceano Sul',country:'BR',price:'US$ 7.500/t',lead:'15 dias'}},
+      {name:'Pescada amarela',price:'US$ 2.900/t',trend:'+0,7%',supplier:{name:'Mar Aberto',country:'BR',price:'US$ 2.650/t',lead:'11 dias'}}],
+    clients:[{name:'Ocean Fresh USA',country:'EUA',last:'há 2 semanas'},{name:'Tokyo Marine Foods',country:'Japão',last:'há 1 mês'},{name:'Iberia Seafood',country:'Espanha',last:'há 3 semanas'}],
+    signals:[{t:'Demanda de camarão sobe nos EUA',imp:'pos',lab:'oportunidade',p:'Recuperação do food service americano aquece a demanda por camarão.',src:'Mercado · hoje'},{t:'Alta do frete reefer pressiona pescado',imp:'neg',lab:'custo ↑',p:'Tarifa spot elevada reduz a margem nas rotas de exportação de pescado.',src:'Índice · hoje'}]},
+
+  biofuels:{label:'Biofuels',line:[900,910,930,940,955,960,970,980],lineLabel:'Sebo bovino · US$/t · 8 meses',
+    kpis:[{lab:'Sebo bovino (tallow)',val:'980',unit:'US$/t',d:'+2,6%',dir:'up',cls:'good'},{lab:'Óleo de soja bruto',val:'1.040',unit:'US$/t',d:'+1,2%',dir:'up',cls:''},{lab:'UCO',val:'860',unit:'US$/t',d:'+3,4%',dir:'up',cls:'good'},{lab:'Etanol',val:'640',unit:'US$/m³',d:'-0,8%',dir:'down',cls:'warn'}],
+    products:[
+      {name:'Sebo bovino (tallow)',price:'US$ 980/t',trend:'+2,6%',supplier:{name:'RenderCo',country:'BR',price:'US$ 880/t',lead:'14 dias'}},
+      {name:'Óleo de soja bruto',price:'US$ 1.040/t',trend:'+1,2%',supplier:{name:'GrãoSul',country:'BR',price:'US$ 950/t',lead:'12 dias'}},
+      {name:'UCO (óleo de cozinha usado)',price:'US$ 860/t',trend:'+3,4%',supplier:{name:'EcoÓleo',country:'BR',price:'US$ 760/t',lead:'16 dias'}},
+      {name:'Óleo de palma',price:'US$ 1.120/t',trend:'+0,9%',supplier:{name:'Palma Norte',country:'BR',price:'US$ 1.020/t',lead:'18 dias'}},
+      {name:'Etanol',price:'US$ 640/m³',trend:'-0,8%',supplier:{name:'BioEtanol MT',country:'BR',price:'US$ 590/m³',lead:'10 dias'}}],
+    clients:[{name:'EuroBiodiesel GmbH',country:'Alemanha',last:'há 1 mês'},{name:'Rotterdam Green Fuels',country:'Holanda',last:'há 3 semanas'},{name:'California Renewables',country:'EUA',last:'há 2 meses'}],
+    signals:[{t:'Mandato de biodiesel eleva demanda por feedstock',imp:'pos',lab:'oportunidade',p:'Aumento da mistura obrigatória pressiona a demanda por sebo e UCO.',src:'Regulatório · esta semana'},{t:'UE aperta rastreabilidade de UCO',imp:'neu',lab:'compliance',p:'Novas exigências de origem para óleo de cozinha usado exportado à Europa.',src:'UE · há 1 semana'}]},
+
+  feedmeal:{label:'Feed Meal',line:[1590,1610,1600,1630,1650,1655,1670,1680],lineLabel:'Farinha de peixe · US$/t · 8 meses',
+    kpis:[{lab:'Farinha de peixe',val:'1.680',unit:'US$/t',d:'+2,1%',dir:'up',cls:'warn'},{lab:'Farelo de soja',val:'480',unit:'US$/t',d:'+1,5%',dir:'up',cls:''},{lab:'Farinha vísceras aves',val:'720',unit:'US$/t',d:'+0,8%',dir:'up',cls:''},{lab:'Farinha carne e ossos',val:'560',unit:'US$/t',d:'-0,3%',dir:'down',cls:''}],
+    products:[
+      {name:'Farinha de peixe (fish meal)',price:'US$ 1.680/t',trend:'+2,1%',supplier:{name:'PescaFarinha',country:'BR',price:'US$ 1.520/t',lead:'12 dias'}},
+      {name:'Farelo de soja',price:'US$ 480/t',trend:'+1,5%',supplier:{name:'GrãoSul',country:'BR',price:'US$ 430/t',lead:'10 dias'}},
+      {name:'Farinha de vísceras de aves',price:'US$ 720/t',trend:'+0,8%',supplier:{name:'AvesMar',country:'BR',price:'US$ 640/t',lead:'11 dias'}},
+      {name:'Farinha de carne e ossos',price:'US$ 560/t',trend:'-0,3%',supplier:{name:'RenderCo',country:'BR',price:'US$ 500/t',lead:'13 dias'}},
+      {name:'Farinha de penas',price:'US$ 610/t',trend:'+1,0%',supplier:{name:'Sulave',country:'BR',price:'US$ 540/t',lead:'12 dias'}}],
+    clients:[{name:'Vietnam Aqua Feed',country:'Vietnã',last:'há 2 semanas'},{name:'Ecuador Shrimp Feed',country:'Equador',last:'há 1 mês'},{name:'Norsk Fôr AS',country:'Noruega',last:'há 3 semanas'}],
+    signals:[{t:'Aquicultura asiática puxa farinha de peixe',imp:'pos',lab:'oportunidade',p:'Expansão da piscicultura na Ásia sustenta preços firmes da fish meal.',src:'Mercado · hoje'},{t:'El Niño afeta captura de anchoveta',imp:'neu',lab:'oferta',p:'Variação climática no Pacífico pode reduzir a oferta global de farinha de peixe.',src:'Clima · esta semana'}]},
+
+  import:{label:'Import',line:[8800,8900,8850,9000,9100,9050,9150,9200],lineLabel:'Salmão fresco · US$/t · 8 meses',
+    kpis:[{lab:'Salmão fresco (Chile)',val:'9.200',unit:'US$/t',d:'+2,8%',dir:'up',cls:'good'},{lab:'Bacalhau (Noruega)',val:'12.400',unit:'US$/t',d:'+1,3%',dir:'up',cls:''},{lab:'USD / BRL',val:'5,38',unit:'',d:'+0,6%',dir:'up',cls:'good'},{lab:'Merluza (Argentina)',val:'3.100',unit:'US$/t',d:'-0,5%',dir:'down',cls:''}],
+    products:[
+      {name:'Salmão fresco (Chile)',price:'US$ 9.200/t',trend:'+2,8%',supplier:{name:'AquaChile Export',country:'Chile',price:'US$ 8.600/t',lead:'8 dias'}},
+      {name:'Bacalhau salgado (Noruega)',price:'US$ 12.400/t',trend:'+1,3%',supplier:{name:'Nordic Cod AS',country:'Noruega',price:'US$ 11.500/t',lead:'20 dias'}},
+      {name:'Merluza (Argentina)',price:'US$ 3.100/t',trend:'-0,5%',supplier:{name:'Pesquera del Sur',country:'Argentina',price:'US$ 2.800/t',lead:'14 dias'}},
+      {name:'Camarão (Equador)',price:'US$ 5.900/t',trend:'+1,7%',supplier:{name:'Ecuador Shrimp Co.',country:'Equador',price:'US$ 5.400/t',lead:'16 dias'}},
+      {name:'Atum congelado',price:'US$ 4.700/t',trend:'+0,6%',supplier:{name:'Pacific Tuna',country:'Peru',price:'US$ 4.300/t',lead:'18 dias'}}],
+    clients:[{name:'Distribuidor SP · mercado interno',country:'BR',last:'há 2 semanas'},{name:'Rede Atacado Sul',country:'BR',last:'há 1 mês'},{name:'Food Service RJ',country:'BR',last:'há 3 semanas'}],
+    signals:[{t:'Real valorizado melhora janela de importação',imp:'pos',lab:'oportunidade',p:'Câmbio favorável reduz o custo de importar salmão e bacalhau para revenda interna.',src:'Mercado · hoje'},{t:'Noruega ajusta cotas de bacalhau',imp:'neu',lab:'oferta',p:'Revisão de cotas pode elevar o preço do bacalhau nos próximos meses.',src:'Noruega · há 1 semana'}]},
+};
 const LINE=[41,39,42,37,36,40,38,38],LTARGET=35,LLAB=['fev','mar','abr','mai','jun','jul','ago','set'];
 const MLINE=[2010,2035,1990,2080,2110,2095,2130,2140],MLAB=['fev','mar','abr','mai','jun','jul','ago','set'];
 const BAR=[{m:'China',v:58,c:'#2FB8CE'},{m:'Oriente Médio',v:34,c:'#4FB0C4'},{m:'Europa',v:27,c:'#5E9FB8'},{m:'Am. Latina',v:19,c:'#6C93AC'},{m:'EUA',v:12,c:'#7A88A0'}];
@@ -336,7 +412,7 @@ let intakeItems=[
 ];
 let pendingFiles=[];
 
-let view='market', filter='all';
+let view='market', filter='all', mktCat='meat';
 
 /* ---------- NAV ---------- */
 function renderNav(){
@@ -387,15 +463,37 @@ function dashboardView(sec){
       <div class="agents" id="agents"></div></section>`;
 }
 function marketView(){
-  return `<header class="topbar fade"><div><div class="title">Inteligência de Mercado</div><div class="desc">Preços, câmbio, frete e sinais que movem a decisão comercial de proteínas e pescados.</div></div>
+  const cat=MARKETCATS[mktCat];
+  const tabs=Object.entries(MARKETCATS).map(([k,v])=>`<button class="mtab ${k===mktCat?'on':''}" data-cat="${k}">${v.label}</button>`).join('');
+  const prods=cat.products.map((p,i)=>{const up=!p.trend.startsWith('-');return `<div class="prod" data-cat="${mktCat}" data-pi="${i}"><div class="pn">${p.name}</div><div class="pp">${p.price}</div><div class="pt ${up?'up':'down'}">${up?'▲':'▼'} ${p.trend}</div><div class="pgo">◆ gerar oferta</div></div>`;}).join('');
+  return `<header class="topbar fade"><div><div class="title">Inteligência de Mercado</div><div class="desc">Preços e sinais por categoria. Clique num produto em alta para o agente buscar fornecedor, montar a oferta e disparar no CRM.</div></div>
     <span class="live"><span class="pulse" style="background:${C.violet}"></span> monitorando</span><span class="proto">protótipo · dados ilustrativos</span></header>
-    <section class="kpis fade d1">${kpiHTML(MKPIS)}</section>
+    <div class="mtabs fade">${tabs}</div>
+    <section class="kpis fade d1">${kpiHTML(cat.kpis)}</section>
     <section class="grid2 fade d2">
-      <div class="card"><div class="head"><h3>Margem FOB média — tendência</h3><span class="hint">US$/t · 8 meses</span></div>${lineSVG(MLINE,MLAB,null)}</div>
+      <div class="card"><div class="head"><h3>Tendência de preço</h3><span class="hint">${cat.lineLabel}</span></div>${lineSVG(cat.line,MLAB,null)}</div>
       <div class="card"><div class="head"><h3>Exposição por mercado</h3><span class="hint">mil ton · ano</span></div>${barSVG()}</div>
     </section>
-    <section class="fade d3"><div class="agents-head"><h2>Sinais de mercado</h2><span class="ctx">${SIGNALS.length} sinais ativos</span></div>
-      <div class="signals">${SIGNALS.map(s=>`<div class="sig-card ${s.imp}"><div class="sh"><h4>${s.t}</h4><span class="imp ${s.imp}">${s.lab}</span></div><p>${s.p}</p><div class="src">◈ ${s.src}</div></div>`).join('')}</div></section>`;
+    <section class="fade d3"><div class="agents-head"><h2>Produtos em alta — ${cat.label}</h2><span class="ctx">5 em alta · clique para gerar oferta</span></div>
+      <div class="prods">${prods}</div></section>
+    <section class="fade"><div class="agents-head"><h2>Sinais de mercado</h2><span class="ctx">${cat.signals.length} sinais</span></div>
+      <div class="signals">${cat.signals.map(s=>`<div class="sig-card ${s.imp}"><div class="sh"><h4>${s.t}</h4><span class="imp ${s.imp}">${s.lab}</span></div><p>${s.p}</p><div class="src">◈ ${s.src}</div></div>`).join('')}</div></section>`;
+}
+function bindMarket(){
+  document.querySelectorAll('.mtab').forEach(b=>b.onclick=()=>{mktCat=b.dataset.cat;render();});
+  document.querySelectorAll('.prod').forEach(el=>el.onclick=()=>openOffer(el.dataset.cat,+el.dataset.pi));
+}
+function openOffer(catId,pi){
+  const cat=MARKETCATS[catId],p=cat.products[pi],n=cat.clients.length;
+  $('#drawerBody').innerHTML=`
+    <div style="display:flex;align-items:center;gap:13px;margin-bottom:6px">${avatar('target',C.violet)}<div><span class="badge b" style="display:inline-block;margin-bottom:6px;background:rgba(156,123,230,.15);color:#c3aef0;border-color:rgba(156,123,230,.4)">Fluxo automático do agente</span><h3 style="margin:0">${p.name}</h3></div></div>
+    <div class="dfn">Preço de mercado ${p.price} · ${p.trend}</div>
+    <div class="ostep fade d1"><div class="on">1</div><div class="ob"><h4>Melhor fornecedor</h4><div class="ocard"><b>${p.supplier.name}</b> · ${p.supplier.country}<div class="orow"><span>Preço FOB</span><span>${p.supplier.price}</span></div><div class="orow"><span>Lead time</span><span>${p.supplier.lead}</span></div></div></div></div>
+    <div class="ostep fade d2"><div class="on">2</div><div class="ob"><h4>Oferta formada</h4><div class="ocard"><div class="orow"><span>Compra (fornecedor)</span><span>${p.supplier.price}</span></div><div class="orow"><span>Oferta ao cliente</span><span style="color:${C.ice}"><b>${p.price}</b></span></div><div class="orow"><span>Condições</span><span>CFR · mín. 1×40' reefer</span></div><div class="orow"><span>Validade</span><span>5 dias úteis</span></div></div></div></div>
+    <div class="ostep fade d3"><div class="on">3</div><div class="ob"><h4>Clientes no CRM · compram ${cat.label}</h4><div class="ocard clist">${cat.clients.map(c=>`<div class="cl"><span>${c.name} · ${c.country}</span><span>${c.last}</span></div>`).join('')}</div></div></div>
+    <div class="fade d4" id="sendWrap"><button class="btn" id="sendOffer">Enviar oferta para ${n} clientes</button></div>`;
+  $('#scrim').classList.add('on');$('#drawer').classList.add('on');
+  $('#sendOffer').onclick=()=>{$('#sendWrap').innerHTML=`<div class="osuccess">✓ Oferta enviada para ${n} clientes via CRM<span>Registrada no funil comercial · follow-up agendado</span></div>`;};
 }
 function intakeView(){
   const agentOpts=['—'].concat(AGENTS.map(a=>a.name)).map(n=>`<option>${n}</option>`).join('');
@@ -469,7 +567,7 @@ function closeDrawer(){$('#scrim').classList.remove('on');$('#drawer').classList
 function render(){
   renderNav();
   const m=$('#main');
-  if(view==='market'){m.innerHTML=marketView();}
+  if(view==='market'){m.innerHTML=marketView();bindMarket();}
   else if(view==='intake'){m.innerHTML=intakeView();bindIntake();}
   else{m.innerHTML=dashboardView(SECTORS.find(s=>s.id===view));bindDashboard();}
 }
