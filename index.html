@@ -23,15 +23,73 @@
     @keyframes rise{to{opacity:1;transform:none}}
   }
   .app{display:grid;grid-template-columns:262px 1fr;min-height:100vh}
+  .hide{display:none!important}
+
+  /* ---------- LANDING / HERO ---------- */
+  #landing{position:fixed;inset:0;z-index:60;overflow:auto;background:radial-gradient(1100px 560px at 72% -5%,#15374f 0%,var(--harbor) 62%)}
+  #net-bg{position:absolute;inset:0;width:100%;height:100%;z-index:0}
+  .l-wrap{position:relative;z-index:1;max-width:1120px;margin:0 auto;padding:30px 30px 56px}
+  .l-top{display:flex;align-items:center;gap:14px}
+  .l-mark{width:44px;height:44px;color:var(--ink);flex:0 0 auto}
+  .l-ibword{display:flex;flex-direction:column;line-height:1}
+  .l-ibword b{font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-weight:700;font-size:13px;letter-spacing:.16em;color:var(--ink)}
+  .l-ibword span{font-size:10px;color:var(--ink-3);letter-spacing:.12em;margin-top:3px}
+  .l-hero{text-align:center;padding:66px 0 40px}
+  .l-cel{font-family:var(--display);font-weight:700;font-size:clamp(30px,6vw,44px);letter-spacing:.14em;color:var(--ink);display:inline-flex;align-items:center;gap:14px}
+  .l-cel b{color:var(--ice)}
+  .l-cel svg{filter:drop-shadow(0 0 10px rgba(47,184,206,.55))}
+  .l-cel{text-shadow:0 2px 24px rgba(12,26,38,.9)}
+  .tagline{font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-weight:600;font-size:clamp(24px,5vw,38px);letter-spacing:-.015em;margin-top:24px;text-shadow:0 2px 24px rgba(12,26,38,.9)}
+  .tagline .g{background:linear-gradient(90deg,var(--ice),var(--violet));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent}
+  .l-sub{color:var(--ink-2);font-size:13.5px;margin-top:16px;display:inline-flex;gap:10px;align-items:center;justify-content:center;flex-wrap:wrap}
+  .l-ibbox{border:1.5px solid var(--ink-3);border-radius:3px;padding:4px 8px;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-weight:700;font-size:9.5px;letter-spacing:.12em;color:var(--ink-2);line-height:1.15;text-align:left}
+  .l-enter{margin-top:30px;background:#F4F8FB;color:#0C1A26;border:none;font-family:var(--display);font-weight:600;font-size:15px;padding:14px 32px;border-radius:12px;cursor:pointer;box-shadow:0 12px 40px -10px rgba(233,241,246,.4);transition:.15s}
+  .l-enter:hover{background:#fff;transform:translateY(-2px);box-shadow:0 16px 46px -10px rgba(233,241,246,.55)}
+  .l-metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:26px}
+  .lm{background:rgba(16,33,48,.72);backdrop-filter:blur(7px);border:1px solid var(--line-soft);border-radius:16px;padding:18px 17px}
+  .lm .lmlab{font-size:11.5px;color:var(--ink-2);min-height:44px;line-height:1.35}
+  .lm .lmval{font-family:var(--mono);font-size:29px;font-weight:600;letter-spacing:-.02em;margin-top:6px}
+  .lm .lmval small{font-size:12px;color:var(--ink-2);margin-left:4px;font-weight:400}
+  .lm .lmspark{margin-top:12px;height:38px}
+  .lm .lmspark svg{width:100%;height:38px;display:block}
+  .donut-wrap{display:flex;align-items:center;gap:14px;margin-top:8px}
+  .donut-wrap .dlabel{font-family:var(--mono);font-size:12px;color:var(--ink-2)}
+  .donut-wrap .dlabel b{color:var(--ink);font-size:17px;display:block}
+  .l-pipe{background:rgba(16,33,48,.74);backdrop-filter:blur(7px);border:1px solid var(--line-soft);border-radius:16px;padding:20px 22px;margin-top:16px}
+  .l-pipe .ph{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:4px}
+  .l-pipe h3{font-family:var(--display);font-size:15px;font-weight:600}
+  .l-pipe .phint{font-size:11px;color:var(--ink-3);font-family:var(--mono)}
+  .l-pipe svg.flow{width:100%;height:auto;display:block;margin-top:4px}
+  .pipe-legend{display:flex;gap:16px;flex-wrap:wrap;font-size:11.5px;color:var(--ink-2);margin-top:10px;align-items:center}
+  .pipe-legend i.dot{width:9px;height:9px;border-radius:50%;display:inline-block;margin-right:6px;vertical-align:middle}
+  .pipe-legend b{color:var(--ice);font-family:var(--mono)}
+  #net-bg{opacity:.6}
+  /* modal terminal de treino */
+  #mlModal{position:fixed;inset:0;z-index:80;display:none;align-items:center;justify-content:center;background:rgba(6,14,20,.72);backdrop-filter:blur(3px);padding:20px}
+  #mlModal.on{display:flex}
+  .term{width:min(760px,96vw);max-height:82vh;background:#0a1620;border:1px solid var(--line);border-radius:14px;overflow:hidden;box-shadow:0 30px 80px -20px #000;display:flex;flex-direction:column}
+  .term-bar{display:flex;align-items:center;gap:9px;padding:12px 16px;border-bottom:1px solid var(--line-soft);background:#0e1f2c}
+  .term-bar .dots{display:flex;gap:6px}
+  .term-bar .dots i{width:11px;height:11px;border-radius:50%;display:block}
+  .term-bar .t{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--ink-2);margin-left:6px}
+  .term-bar .x{margin-left:auto;background:transparent;border:none;color:var(--ink-2);cursor:pointer;font-size:19px;line-height:1}
+  .term-body{padding:16px 18px;overflow:auto;font-family:'IBM Plex Mono',monospace;font-size:12.5px;line-height:1.65;color:#cfe0ea}
+  .term-body .k{color:#2FB8CE}.term-body .g2{color:#48B47C}.term-body .am{color:#E8A13A}.term-body .di{color:#6F8B9E}
+  .term-cursor{display:inline-block;width:8px;height:15px;background:#2FB8CE;vertical-align:-2px;animation:blink 1s steps(1) infinite}
+  @keyframes blink{50%{opacity:0}}
+  @media(max-width:900px){.l-metrics{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:520px){.l-metrics{grid-template-columns:1fr}}
+  @media(max-width:900px){.l-metrics{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:520px){.l-metrics{grid-template-columns:1fr}}
 
   /* ---------- RAIL ---------- */
   .rail{border-right:1px solid var(--line);background:linear-gradient(180deg,var(--harbor-2),var(--harbor));padding:20px 16px;position:sticky;top:0;height:100vh;overflow:auto}
   .brand{display:flex;align-items:center;gap:12px;padding:4px 6px 6px}
   /* selo IB — SUBSTITUIR pela logo oficial (troque este bloco .ib pelo <img> da logo) */
-  .ib{width:46px;height:46px;border-radius:12px;flex:0 0 auto;display:grid;place-items:center;
-    background:linear-gradient(135deg,#1b4a5e,#0e2c3a);border:1px solid var(--ice-dim);
-    font-family:var(--display);font-weight:700;font-size:19px;letter-spacing:.02em;color:var(--ice);
-    box-shadow:0 0 20px rgba(47,184,206,.18)}
+  .ib{width:46px;height:46px;border-radius:4px;flex:0 0 auto;display:grid;place-items:center;
+    background:transparent;border:2px solid var(--ice);
+    font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-weight:700;font-size:17px;letter-spacing:.04em;color:var(--ice);
+    box-shadow:0 0 18px rgba(47,184,206,.15)}
   .brand .cel{display:flex;align-items:center;gap:8px}
   .brand .name{font-family:var(--display);font-weight:700;font-size:21px;letter-spacing:.11em;color:var(--ink)}
   .brand .name b{color:var(--ice)}
@@ -209,7 +267,124 @@
 </style>
 </head>
 <body>
-<div class="app">
+
+<!-- ================= LANDING / HERO ================= -->
+<section id="landing">
+  <canvas id="net-bg"></canvas>
+  <div class="l-wrap">
+    <div class="l-top">
+      <svg class="l-mark" viewBox="0 0 44 44" fill="none"><rect x="3" y="3" width="38" height="38" rx="3" stroke="currentColor" stroke-width="2"/><text x="22" y="29" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-weight="700" font-size="17" fill="currentColor">IB</text></svg>
+      <div class="l-ibword"><b>INDEPENDENT</b><span>BRAZIL</span></div>
+    </div>
+
+    <div class="l-hero">
+      <div class="l-cel">
+        <svg width="34" height="34" viewBox="0 0 24 24" fill="none"><circle cx="6" cy="7" r="2" fill="#2FB8CE"/><circle cx="18" cy="6" r="2" fill="#2FB8CE"/><circle cx="12" cy="13" r="2.4" fill="#2FB8CE"/><circle cx="7" cy="18" r="2" fill="#2FB8CE"/><circle cx="18" cy="17" r="2" fill="#2FB8CE"/><path d="M6 7L12 13M18 6L12 13M12 13L7 18M12 13L18 17" stroke="#2FB8CE" stroke-width="1.1" opacity=".55"/></svg>
+        <span>CE<b>L</b>EBRO</span>
+      </div>
+      <h1 class="tagline">Connect with a <span class="g">smarter world</span>.</h1>
+      <div class="l-sub">Central de agentes especializados <span class="l-ibbox">INDEPENDENT<br>BRAZIL</span></div>
+      <div><button class="l-enter" id="enter">Acessar plataforma →</button></div>
+    </div>
+
+    <div class="l-metrics">
+      <div class="lm">
+        <div class="lmlab">Velocidade de processamento do CELEBRO</div>
+        <div class="lmval"><span id="m-proc">42.0</span><small>TFLOPS</small></div>
+        <div class="lmspark" id="m-proc-spark"></div>
+      </div>
+      <div class="lm">
+        <div class="lmlab">Quantidade de armazenamento</div>
+        <div class="donut-wrap">
+          <svg width="76" height="76" viewBox="0 0 76 76"><circle cx="38" cy="38" r="30" fill="none" stroke="#1B3A4E" stroke-width="9"/><circle id="m-donut" cx="38" cy="38" r="30" fill="none" stroke="#2FB8CE" stroke-width="9" stroke-linecap="round" stroke-dasharray="188.5" stroke-dashoffset="100" transform="rotate(-90 38 38)"/></svg>
+          <div class="dlabel"><b><span id="m-store">18.4</span> TB</b>de 40 TB</div>
+        </div>
+      </div>
+      <div class="lm">
+        <div class="lmlab">Dados subindo em streaming</div>
+        <div class="lmval"><span id="m-strm">160</span><small>MB/s</small></div>
+        <div class="lmspark" id="m-strm-chart"></div>
+      </div>
+    </div>
+
+    <div class="l-pipe">
+      <div class="ph"><h3>Malha de agentes em treinamento</h3><span class="phint">tempo real</span></div>
+      <svg class="flow" viewBox="0 0 1000 210" preserveAspectRatio="xMidYMid meet">
+        <defs>
+          <marker id="ah" markerWidth="9" markerHeight="9" refX="6" refY="3" orient="auto"><path d="M0 0L6 3L0 6z" fill="#2FB8CE"/></marker>
+          <marker id="aha" markerWidth="9" markerHeight="9" refX="6" refY="3" orient="auto"><path d="M0 0L6 3L0 6z" fill="#E8A13A"/></marker>
+          <marker id="ahd" markerWidth="9" markerHeight="9" refX="6" refY="3" orient="auto"><path d="M0 0L6 3L0 6z" fill="#5E9FB8"/></marker>
+          <radialGradient id="furn" cx="50%" cy="62%" r="62%"><stop offset="0" stop-color="#ffcf8a"/><stop offset="0.55" stop-color="#E8663A"/><stop offset="1" stop-color="#5e241a"/></radialGradient>
+        </defs>
+        <g font-family="Inter,sans-serif" font-size="12" font-weight="600" fill="#9DB4C4" text-anchor="middle">
+          <text x="130" y="16">1 · Interação</text><text x="430" y="16">2 · Forno de treino</text><text x="645" y="16">3 · Qualidade</text><text x="878" y="16">4 · Linha de negócio</text>
+        </g>
+        <g font-family="'IBM Plex Mono',monospace" font-size="9" fill="#6F8B9E" text-anchor="middle">
+          <path d="M235 120 L372 120" stroke="#2FB8CE" stroke-width="1.4" opacity=".7" marker-end="url(#ah)"/><text x="303" y="112">pronto p/ treino</text>
+          <path d="M470 120 L600 120" stroke="#2FB8CE" stroke-width="1.4" opacity=".7" marker-end="url(#ah)"/><text x="535" y="112">treinado</text>
+          <path d="M686 120 L792 120" stroke="#2FB8CE" stroke-width="1.4" opacity=".7" marker-end="url(#ah)"/><text x="739" y="112">aprovado</text>
+        </g>
+        <!-- 1 interação: direção + pergunta/resposta -->
+        <g>
+          <path d="M88 74 L166 102" stroke="#E8A13A" stroke-width="1.5" marker-end="url(#aha)"/>
+          <path d="M168 112 L104 158" stroke="#2FB8CE" stroke-width="1.5" marker-end="url(#ah)"/>
+          <path d="M92 150 L84 84" stroke="#5E9FB8" stroke-width="1.2" stroke-dasharray="3 3" opacity=".5" marker-end="url(#ahd)"/>
+          <text x="120" y="80" font-family="'IBM Plex Mono',monospace" font-size="8.5" fill="#E8A13A">pergunta</text>
+          <text x="150" y="150" font-family="'IBM Plex Mono',monospace" font-size="8.5" fill="#2FB8CE">resposta</text>
+          <circle r="3" fill="#E8A13A"><animateMotion dur="2s" repeatCount="indefinite" path="M80 70 L175 105"/></circle>
+          <circle r="3" fill="#2FB8CE"><animateMotion dur="2.2s" begin="0.6s" repeatCount="indefinite" path="M175 105 L95 165"/></circle>
+          <g fill="#132A3B" stroke="#2FB8CE" stroke-width="1.6"><circle cx="80" cy="70" r="9"/><circle cx="175" cy="105" r="9"/><circle cx="95" cy="165" r="9"/></g>
+        </g>
+        <!-- 2 forno -->
+        <g id="furnaceHit" style="cursor:pointer">
+          <rect x="372" y="76" width="96" height="88" rx="10" fill="#132A3B" stroke="#2FB8CE" stroke-width="1.6"/>
+          <rect x="388" y="104" width="64" height="52" rx="6" fill="url(#furn)"><animate attributeName="opacity" values="0.7;1;0.7" dur="1.6s" repeatCount="indefinite"/></rect>
+          <path d="M402 152 Q408 128 414 152 Q420 132 426 152 Q432 130 438 152 Z" fill="#ffe0a8"><animate attributeName="opacity" values="0.5;1;0.5" dur="0.9s" repeatCount="indefinite"/></path>
+          <circle r="4" fill="#9C7BE6"><animateMotion dur="3s" repeatCount="indefinite" path="M352 120 L412 128"/></circle>
+          <text x="420" y="182" font-family="'IBM Plex Mono',monospace" font-size="9" fill="#6F8B9E" text-anchor="middle">novos modelos</text>
+          <text x="420" y="193" font-family="'IBM Plex Mono',monospace" font-size="7.5" fill="#2FB8CE" text-anchor="middle" opacity=".85">▸ clique para ver o treino</text>
+        </g>
+        <!-- 3 qualidade -->
+        <g>
+          <rect x="606" y="90" width="78" height="62" rx="10" fill="#132A3B" stroke="#2FB8CE" stroke-width="1.6"/>
+          <path d="M628 122 l10 10 l18 -21" fill="none" stroke="#48B47C" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><animate attributeName="opacity" values="0.25;1;0.25" dur="1.8s" repeatCount="indefinite"/></path>
+          <text x="645" y="170" font-family="'IBM Plex Mono',monospace" font-size="9" fill="#6F8B9E" text-anchor="middle">validação</text>
+        </g>
+        <!-- 4 linha de negócio -->
+        <g font-family="Inter,sans-serif" font-size="10.5" fill="#E9F1F6">
+          <g><rect x="800" y="42" width="162" height="22" rx="6" fill="#132A3B" stroke="#22485F"/><rect x="800" y="42" width="162" height="22" rx="6" fill="#2FB8CE" opacity="0"><animate attributeName="opacity" values="0;0.22;0" dur="5s" begin="0s" repeatCount="indefinite"/></rect><text x="811" y="57">Comercial</text></g>
+          <g><rect x="800" y="70" width="162" height="22" rx="6" fill="#132A3B" stroke="#22485F"/><rect x="800" y="70" width="162" height="22" rx="6" fill="#2FB8CE" opacity="0"><animate attributeName="opacity" values="0;0.22;0" dur="5s" begin="1s" repeatCount="indefinite"/></rect><text x="811" y="85">Operacional</text></g>
+          <g><rect x="800" y="98" width="162" height="22" rx="6" fill="#132A3B" stroke="#22485F"/><rect x="800" y="98" width="162" height="22" rx="6" fill="#2FB8CE" opacity="0"><animate attributeName="opacity" values="0;0.22;0" dur="5s" begin="2s" repeatCount="indefinite"/></rect><text x="811" y="113">Financeiro</text></g>
+          <g><rect x="800" y="126" width="162" height="22" rx="6" fill="#132A3B" stroke="#22485F"/><rect x="800" y="126" width="162" height="22" rx="6" fill="#2FB8CE" opacity="0"><animate attributeName="opacity" values="0;0.22;0" dur="5s" begin="3s" repeatCount="indefinite"/></rect><text x="811" y="141">Diretoria</text></g>
+          <g><rect x="800" y="154" width="162" height="22" rx="6" fill="#132A3B" stroke="#22485F"/><rect x="800" y="154" width="162" height="22" rx="6" fill="#2FB8CE" opacity="0"><animate attributeName="opacity" values="0;0.22;0" dur="5s" begin="4s" repeatCount="indefinite"/></rect><text x="811" y="169">Assuntos Regulatórios</text></g>
+        </g>
+        <!-- agentes fluindo pela esteira -->
+        <circle r="5" fill="#9C7BE6" opacity=".9"><animateMotion dur="7s" repeatCount="indefinite" path="M210 120 L800 108"/></circle>
+        <circle r="5" fill="#2FB8CE" opacity=".8"><animateMotion dur="7s" begin="3.5s" repeatCount="indefinite" path="M210 120 L800 132"/></circle>
+      </svg>
+      <div class="pipe-legend">
+        <span><i class="dot" style="background:#E8A13A"></i>pergunta</span>
+        <span><i class="dot" style="background:#2FB8CE"></i>resposta</span>
+        <span>trocando padrões de rota · margem por mercado · exigências sanitárias</span>
+        <span style="margin-left:auto"><b id="m-agents-n">1.240</b> interações/min</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- modal: treino de ML no forno -->
+<div id="mlModal">
+  <div class="term">
+    <div class="term-bar">
+      <span class="dots"><i style="background:#E0685E"></i><i style="background:#E8A13A"></i><i style="background:#48B47C"></i></span>
+      <span class="t">celebro-train · forno de novos modelos</span>
+      <button class="x" id="mlClose">×</button>
+    </div>
+    <div class="term-body" id="mlBody"></div>
+  </div>
+</div>
+
+<div class="app hide" id="appShell">
   <nav class="rail">
     <div class="brand">
       <!-- ↓↓↓ SUBSTITUIR pelo <img src="logo-ib.svg"> oficial da IB ↓↓↓ -->
@@ -412,7 +587,7 @@ let intakeItems=[
 ];
 let pendingFiles=[];
 
-let view='market', filter='all', mktCat='meat';
+let view='overview', filter='all', mktCat='meat';
 
 /* ---------- NAV ---------- */
 function renderNav(){
@@ -574,6 +749,107 @@ function render(){
 $('#closeDrawer').onclick=closeDrawer;$('#scrim').onclick=closeDrawer;
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeDrawer();});
 render();
+
+/* ================= LANDING ================= */
+const landing=$('#landing'), appShell=$('#appShell');
+let netRAF=null, metricTimer=null;
+
+/* fundo estilo Matrix — chuva de código (canvas) */
+function startNet(){
+  const cv=$('#net-bg'); if(!cv)return; const ctx=cv.getContext('2d');
+  const glyphs='アカサタナハマヤラワ0123456789ABCDEF<>/{}[]$#*=+'.split('');
+  const fs=15; let W,H,cols,drops;
+  function resize(){W=cv.width=cv.offsetWidth;H=cv.height=cv.offsetHeight;cols=Math.ceil(W/fs);drops=Array(cols).fill(0).map(()=>Math.random()*-40);}
+  resize(); cv._resize=resize; window.addEventListener('resize',cv._resize);
+  ctx.fillStyle='#0C1A26';ctx.fillRect(0,0,W,H);
+  function draw(){
+    ctx.fillStyle='rgba(12,26,38,0.10)';ctx.fillRect(0,0,W,H);
+    ctx.font=fs+'px "IBM Plex Mono",monospace';
+    for(let i=0;i<cols;i++){
+      const x=i*fs, y=drops[i]*fs;
+      ctx.fillStyle='rgba(200,214,224,0.75)';
+      ctx.fillText(glyphs[(Math.random()*glyphs.length)|0],x,y);
+      ctx.fillStyle='rgba(120,140,155,0.28)';
+      ctx.fillText(glyphs[(Math.random()*glyphs.length)|0],x,y-fs);
+      if(y>H && Math.random()>0.975) drops[i]=Math.random()*-20;
+      drops[i]+=0.55;
+    }
+    netRAF=requestAnimationFrame(draw);
+  }
+  draw();
+}
+function stopNet(){if(netRAF)cancelAnimationFrame(netRAF);netRAF=null;}
+
+/* medidores vivos */
+const procArr=[],strmArr=[];for(let i=0;i<28;i++){procArr.push(38+Math.random()*8);strmArr.push(120+Math.random()*90);}
+let storeVal=18.4;
+function spark(arr,color,fill){
+  const W=120,H=36,min=Math.min(...arr),max=Math.max(...arr),rng=(max-min)||1;
+  const x=i=>i/(arr.length-1)*W, y=v=>H-2-((v-min)/rng)*(H-6);
+  const path=arr.map((v,i)=>`${i?'L':'M'}${x(i).toFixed(1)},${y(v).toFixed(1)}`).join(' ');
+  const area=fill?`<path d="${path} L${W},${H} L0,${H} Z" fill="${color}" opacity=".14"/>`:'';
+  return `<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="none">${area}<path d="${path}" fill="none" stroke="${color}" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/></svg>`;
+}
+function tick(){
+  procArr.push(38+Math.random()*8);procArr.shift();
+  $('#m-proc').textContent=procArr[procArr.length-1].toFixed(1);
+  $('#m-proc-spark').innerHTML=spark(procArr,'#2FB8CE',false);
+  strmArr.push(110+Math.random()*110);strmArr.shift();
+  $('#m-strm').textContent=Math.round(strmArr[strmArr.length-1]);
+  $('#m-strm-chart').innerHTML=spark(strmArr,'#9C7BE6',true);
+  storeVal+=0.03;if(storeVal>39.4)storeVal=18.4;
+  $('#m-store').textContent=storeVal.toFixed(1);
+  const circ=188.5,pct=storeVal/40;const d=$('#m-donut');if(d)d.setAttribute('stroke-dashoffset',(circ*(1-pct)).toFixed(1));
+  $('#m-agents-n').textContent=(1200+Math.floor(Math.random()*260)).toLocaleString('pt-BR');
+}
+function startMetrics(){if(metricTimer)return;tick();metricTimer=setInterval(tick,900);}
+function stopMetrics(){clearInterval(metricTimer);metricTimer=null;}
+
+function enterApp(){landing.classList.add('hide');appShell.classList.remove('hide');stopNet();stopMetrics();}
+function goHome(){appShell.classList.add('hide');landing.classList.remove('hide');startNet();startMetrics();}
+
+$('#enter').onclick=enterApp;
+const brandEl=document.querySelector('.brand');if(brandEl){brandEl.style.cursor='pointer';brandEl.title='Voltar à página inicial';brandEl.onclick=goHome;}
+
+/* forno → terminal de treino de ML */
+let mlTimer=null;
+function openML(){
+  const body=$('#mlBody');if(!body)return;body.innerHTML='';$('#mlModal').classList.add('on');
+  const append=h=>{const d=document.createElement('div');d.innerHTML=h||'&nbsp;';body.appendChild(d);body.scrollTop=body.scrollHeight;};
+  const intro=[
+    '<span class="di">$</span> <span class="k">python</span> train.py --model celebro-transit-time --gpu 0',
+    '<span class="di">INFO</span>  carregando dataset: <span class="k">embarques_china.parquet</span>',
+    '<span class="di">·</span>     48.213 amostras · 32 features · split treino/val 80/20',
+    '<span class="di">INFO</span>  normalizando features · encoding de armador e rota',
+    '<span class="di">INFO</span>  modelo: <span class="k">GradientBoosting</span> + <span class="k">embeddings</span> · params 1.4M',
+    '<span class="di">INFO</span>  iniciando treinamento <span class="am">(early stopping · paciência 8)</span>',
+    ''];
+  let i=0,epoch=1,loss=0.842,acc=0.712;const maxE=40;
+  const bar=p=>{const w=22,f=Math.round(p*w);return '['+'█'.repeat(f)+'·'.repeat(w-f)+']';};
+  function writeIntro(){if(i<intro.length){append(intro[i++]);setTimeout(writeIntro,170);}else streamEpochs();}
+  function streamEpochs(){
+    mlTimer=setInterval(()=>{
+      if(epoch>maxE){
+        append('');
+        append('<span class="g2">✓ treino concluído</span>  ·  melhor val_loss <span class="am">0.087</span>  ·  R² <span class="g2">0.94</span>');
+        append('<span class="di">→</span> modelo empacotado e enviado para <span class="k">validação (qualidade)</span> <span class="term-cursor"></span>');
+        clearInterval(mlTimer);mlTimer=null;return;
+      }
+      loss=Math.max(0.085,loss*(0.90+Math.random()*0.055));
+      acc=Math.min(0.986,acc+(0.986-acc)*0.13+Math.random()*0.003);
+      append(`epoch <span class="k">${String(epoch).padStart(2,'0')}/${maxE}</span>  ${bar(epoch/maxE)}  loss <span class="am">${loss.toFixed(3)}</span>  acc <span class="g2">${(acc*100).toFixed(1)}%</span>`);
+      epoch++;
+    },150);
+  }
+  writeIntro();
+}
+function closeML(){$('#mlModal').classList.remove('on');if(mlTimer){clearInterval(mlTimer);mlTimer=null;}}
+const fh=$('#furnaceHit');if(fh)fh.addEventListener('click',openML);
+$('#mlClose').onclick=closeML;
+$('#mlModal').addEventListener('click',e=>{if(e.target===$('#mlModal'))closeML();});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeML();});
+
+startNet();startMetrics();
 </script>
 </body>
 </html>
