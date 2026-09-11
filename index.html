@@ -239,7 +239,13 @@
   .head-bubble::before{content:"";position:absolute;left:-10px;top:22px;width:0;height:0;border:10px solid transparent;border-right-color:var(--panel);border-left:0}
   .head-bubble .who{display:block;font-size:10.5px;font-family:var(--mono);color:#8fe0b0;margin-bottom:5px}
   .head-bubble b{color:#8fe0b0}
-  @media(max-width:900px){.head-bubble{position:static;left:auto;top:auto;width:auto;max-width:280px;margin:12px auto 0;transform:none}.head-bubble::before{display:none}}
+  .head-bubble.hb-left{left:auto;right:calc(100% + 16px);transform:translateX(6px)}
+  .head-bubble.hb-left.show{transform:none}
+  .head-bubble.hb-left::before{left:auto;right:-10px;border:10px solid transparent;border-left-color:var(--panel);border-right:0}
+  .head-bubble.hb-left .who{color:#5fc7d8}
+  .head-bubble.hb-left b{color:#5fc7d8}
+  .bulb.off{animation:none;filter:grayscale(.85) brightness(.4);opacity:.5}
+  @media(max-width:900px){.head-bubble{position:static;left:auto;right:auto;top:auto;width:auto;max-width:280px;margin:12px auto 0;transform:none}.head-bubble::before{display:none}}
   .robot-say{margin-top:8px;font-size:13.5px;color:var(--ink-2);max-width:440px}
   .lousa{margin:18px auto 0;max-width:720px;background:#22352b;border:11px solid #6b4a2b;border-radius:12px;padding:24px 28px;position:relative;
     box-shadow:inset 0 0 70px rgba(0,0,0,.45),0 16px 34px -14px #000;animation:boardIn .35s ease}
@@ -732,6 +738,7 @@ function financeBrief(){
             <rect x="86" y="160" width="16" height="18" rx="5" fill="#17334a"/>
           </svg>
           <div class="robot-name">⚓ Comandante Financeiro</div>
+          <div class="head-bubble hb-left" id="finCmdBubble"></div>
         </div>
         <div class="crew-col hide" id="ibancoCol">
           <svg class="robot" viewBox="0 0 150 182" fill="none">
@@ -938,7 +945,7 @@ function closeDrawer(){$('#scrim').classList.remove('on');$('#drawer').classList
 
 function bindFinance(){
   const bulb=$('#finBulb'),lousa=$('#finLousa');if(!bulb)return;
-  bulb.onclick=()=>{lousa.hidden=false;const h=$('#bulbHint');if(h)h.style.visibility='hidden';const rs=$('#robotSay');if(rs)rs.textContent='Aqui está o resumo do dia. 👇';lousa.scrollIntoView({behavior:'smooth',block:'nearest'});};
+  bulb.onclick=()=>{lousa.hidden=false;bulb.classList.remove('off');const h=$('#bulbHint');if(h)h.style.visibility='hidden';const rs=$('#robotSay');if(rs)rs.textContent='Aqui está o resumo do dia. 👇';const col=$('#ibancoCol');if(col)col.classList.add('hide');const ib=$('#ibBubble');if(ib){ib.classList.remove('show');ib.innerHTML='';}const cb=$('#finCmdBubble');if(cb){cb.classList.remove('show');cb.innerHTML='';}lousa.scrollIntoView({behavior:'smooth',block:'nearest'});};
   const q=$('#chalkQ'),res=$('#chalkResult');
   const reveal=lines=>{res.hidden=false;res.innerHTML='';lines.forEach((l,i)=>{const d=document.createElement('div');d.className='line';d.style.animationDelay=(i*0.7)+'s';d.innerHTML=l;res.appendChild(d);});};
   const no=$('#finNo'),yes=$('#finYes');
@@ -951,16 +958,17 @@ function bindFinance(){
     'Pronto! Saldo e contas atualizados. 👍'
   ]);};
   const close=$('#finClose');if(close)close.onclick=()=>{
-    lousa.hidden=true;q.hidden=false;res.hidden=true;res.innerHTML='';const ar=$('#finAskResp');if(ar)ar.innerHTML='';
-    const h=$('#bulbHint');if(h)h.style.visibility='visible';
-    const rs=$('#robotSay');if(rs)rs.textContent='Deixa eu chamar o Sargento IBanco pra ver as novidades…';
+    lousa.hidden=true;q.hidden=false;res.hidden=true;res.innerHTML='';const arr=$('#finAskResp');if(arr)arr.innerHTML='';
+    bulb.classList.add('off');const h=$('#bulbHint');if(h)h.style.visibility='hidden';
     const col=$('#ibancoCol');if(col)col.classList.remove('hide');
     const rs2=$('#robotSay');if(rs2)rs2.innerHTML='<b>Comandante:</b> IBanco, quais as novidades?';
-    const bubble=$('#ibBubble');if(!bubble)return;
+    const bubble=$('#ibBubble'),cmdB=$('#finCmdBubble');if(!bubble)return;
+    if(cmdB){cmdB.classList.remove('show');cmdB.innerHTML='';}
     const falas=['Comandante! Consegui <b>três reuniões</b> com bancos importantes interessados em investir na nossa nova linha de negócio: <b>Robótica</b>. 🚀',
       'A <b>Independent Brazil</b> está entrando no radar de grandes startups pela nossa inteligência de mercado e visão aguçada de novas tendências.',
       'E reforço: nosso time de agentes está executando muito bem as tarefas. 💪'];
-    let bi=0;(function cycle(){bubble.classList.remove('show');setTimeout(()=>{bubble.innerHTML='<span class="who">Sargento IBanco</span>'+falas[bi];bubble.classList.add('show');bi++;if(bi<falas.length)setTimeout(cycle,2800);},280);})();
+    const READ=4600;let bi=0;
+    (function cycle(){bubble.classList.remove('show');setTimeout(()=>{bubble.innerHTML='<span class="who">Sargento IBanco</span>'+falas[bi];bubble.classList.add('show');bi++;if(bi<falas.length){setTimeout(cycle,READ);}else{setTimeout(()=>{if(cmdB){cmdB.innerHTML='<span class="who">Comandante Financeiro</span>Muito bem! Se precisarem de <b>auditoria</b> para negociar com esses bancos, me acione que eu organizo todos os <b>documentos e extratos</b> necessários.';cmdB.classList.add('show');}},READ);}},300);})();
   };
   const ai=$('#finAskIn'),asnd=$('#finAskSend'),ar=$('#finAskResp');
   const fsub=()=>{const v=(ai.value||'').trim();if(!v)return;const u=document.createElement('div');u.className='ask-you';u.textContent=v;ar.appendChild(u);ai.value='';ar.scrollTop=ar.scrollHeight;setTimeout(()=>{const a=document.createElement('div');a.className='ask-bot';a.innerHTML='<b>Comandante Financeiro:</b> Recebido — vou providenciar e retorno com o andamento. 👍';ar.appendChild(a);ar.scrollTop=ar.scrollHeight;},380);};
