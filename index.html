@@ -212,6 +212,8 @@
   .chalk-grid b{font-family:var(--mono);font-size:18px;color:#fff;font-weight:600;letter-spacing:-.02em}
   .chalk-rec{font-family:var(--sans);font-size:13.5px;color:#eef5f0;line-height:1.6;margin-bottom:16px;background:rgba(0,0,0,.18);border-left:3px solid #ffd873;border-radius:0 8px 8px 0;padding:12px 14px}
   .chalk-rec u,.chalk-result u{text-decoration-color:#ffd873;color:#ffe9a8}
+  .chalk-msg{font-family:var(--sans);font-size:13.5px;color:#eef5f0;line-height:1.5;margin-bottom:14px}
+  .chalk-msg b{color:#ffe9a8}
   .chalk-q{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;border-top:1px dashed rgba(234,243,238,.28);padding-top:15px}
   .chalk-q>span{font-family:var(--display);font-weight:600;font-size:15px;color:#fff}
   .chalk-actions{display:flex;gap:10px}
@@ -703,8 +705,49 @@ function financeBrief(){
     </div>
   </section>`;
 }
+function operationalScene(){
+  return `<section class="fin-scene fade" id="opeScene">
+    <div class="robot-stage">
+      <button class="bulb" id="opeBulb" aria-label="Ver alerta do agente">
+        <svg viewBox="0 0 60 72"><g stroke="#E8A13A" stroke-width="2.6" stroke-linecap="round"><line x1="30" y1="3" x2="30" y2="11"/><line x1="9" y1="11" x2="15" y2="17"/><line x1="51" y1="11" x2="45" y2="17"/><line x1="3" y1="33" x2="11" y2="33"/><line x1="57" y1="33" x2="49" y2="33"/></g><circle cx="30" cy="32" r="16" fill="#ffd873" stroke="#E8A13A" stroke-width="2"/><path d="M24 32q6 -9 12 0" stroke="#b9761f" stroke-width="1.6" fill="none"/><rect x="23" y="47" width="14" height="7" rx="2" fill="#cfd3d6"/><rect x="24.5" y="54" width="11" height="5" rx="2" fill="#9aa0a4"/><rect x="25" y="59" width="10" height="4" rx="2" fill="#7f858a"/></svg>
+      </button>
+      <div class="bulb-hint" id="opeBulbHint">clique na ideia</div>
+      <svg class="robot" viewBox="0 0 150 182" fill="none">
+        <line x1="75" y1="30" x2="75" y2="15" stroke="#2FB8CE" stroke-width="3"/>
+        <circle cx="75" cy="11" r="5" fill="#2FB8CE"><animate attributeName="opacity" values="0.5;1;0.5" dur="1.4s" repeatCount="indefinite"/></circle>
+        <rect x="34" y="30" width="82" height="60" rx="16" fill="#17334a" stroke="#2FB8CE" stroke-width="2"/>
+        <ellipse cx="58" cy="58" rx="7" ry="7" fill="#2FB8CE"><animate attributeName="ry" values="7;7;7;1;7;7" dur="4s" repeatCount="indefinite"/></ellipse>
+        <ellipse cx="92" cy="58" rx="7" ry="7" fill="#2FB8CE"><animate attributeName="ry" values="7;7;7;1;7;7" dur="4s" repeatCount="indefinite"/></ellipse>
+        <rect x="60" y="74" width="30" height="5" rx="2.5" fill="#2FB8CE" opacity=".55"/>
+        <rect x="66" y="90" width="18" height="10" fill="#0f2636"/>
+        <rect x="30" y="100" width="90" height="62" rx="16" fill="#132A3B" stroke="#2FB8CE" stroke-width="2"/>
+        <rect x="54" y="114" width="42" height="30" rx="6" fill="#0a1620" stroke="#9C7BE6" stroke-width="1.5"/>
+        <rect x="62" y="121" width="26" height="16" rx="1.5" fill="none" stroke="#9C7BE6" stroke-width="1.4"/>
+        <line x1="62" y1="129" x2="88" y2="129" stroke="#9C7BE6" stroke-width="1"/><line x1="70.6" y1="121" x2="70.6" y2="137" stroke="#9C7BE6" stroke-width="1"/><line x1="79.3" y1="121" x2="79.3" y2="137" stroke="#9C7BE6" stroke-width="1"/>
+        <rect x="16" y="104" width="12" height="42" rx="6" fill="#17334a" stroke="#2FB8CE" stroke-width="1.5"/>
+        <rect x="122" y="104" width="12" height="42" rx="6" fill="#17334a" stroke="#2FB8CE" stroke-width="1.5"/>
+        <rect x="48" y="160" width="16" height="18" rx="5" fill="#17334a"/>
+        <rect x="86" y="160" width="16" height="18" rx="5" fill="#17334a"/>
+      </svg>
+      <div class="robot-say" id="opeRobotSay">Olá! Sou o Agente Operacional. Encontrei uma pendência de booking — clique na lâmpada.</div>
+    </div>
+    <div class="lousa" id="opeLousa" hidden>
+      <div class="chalk-head">Pendência operacional · booking</div>
+      <div class="chalk-msg">Ainda temos <b>4 processos sem booking</b> e não foi identificada a solicitação de booking:</div>
+      <div class="chalk-grid">
+        <div><span>sem booking</span><b>240154</b></div>
+        <div><span>sem booking</span><b>240158</b></div>
+        <div><span>sem booking</span><b>240159</b></div>
+        <div><span>sem booking</span><b>240254</b></div>
+      </div>
+      <div class="chalk-rec">Verifiquei que o fornecedor já posicionou a disponibilidade da carga. Posso disparar os e-mails solicitando o booking?</div>
+      <div class="chalk-q" id="opeQ"><span>Deseja que eu solicite os bookings?</span><div class="chalk-actions"><button class="btn-yes" id="opeYes">Sim, solicitar</button><button class="btn-no" id="opeNo">Não</button></div></div>
+      <div class="chalk-result" id="opeResult" hidden></div>
+    </div>
+  </section>`;
+}
 function dashboardView(sec){
-  const brief = sec.id==='fin' ? financeBrief() : '';
+  const brief = sec.id==='fin' ? financeBrief() : sec.id==='ope' ? operationalScene() : '';
   return `<header class="topbar fade"><div><div class="title">${sec.title}</div><div class="desc">${sec.desc}</div></div>
     <span class="live"><span class="pulse"></span> operação ativa</span><span class="proto">protótipo · dados ilustrativos</span></header>
     ${brief}
@@ -836,12 +879,30 @@ function bindFinance(){
   ]);};
 }
 
+function bindOperational(){
+  const bulb=$('#opeBulb'),lousa=$('#opeLousa');if(!bulb)return;
+  bulb.onclick=()=>{lousa.hidden=false;const h=$('#opeBulbHint');if(h)h.style.visibility='hidden';const rs=$('#opeRobotSay');if(rs)rs.textContent='Aqui está a pendência. 👇';lousa.scrollIntoView({behavior:'smooth',block:'nearest'});};
+  const q=$('#opeQ'),res=$('#opeResult');
+  const reveal=lines=>{res.hidden=false;res.innerHTML='';lines.forEach((l,i)=>{const d=document.createElement('div');d.className='line';d.style.animationDelay=(i*0.7)+'s';d.innerHTML=l;res.appendChild(d);});};
+  const no=$('#opeNo'),yes=$('#opeYes');
+  if(no)no.onclick=()=>{q.hidden=true;reveal(['Tudo certo — não vou solicitar agora.','Fico à disposição quando quiser disparar. 🤝']);};
+  if(yes)yes.onclick=()=>{q.hidden=true;reveal([
+    'Disparando e-mails de solicitação de booking…',
+    '<span class="ok">✓</span> 240154 → <u>booking@maersk-line.com</u>',
+    '<span class="ok">✓</span> 240158 → <u>reservas@msc-brasil.com</u>',
+    '<span class="ok">✓</span> 240159 → <u>booking@cma-cgm-itajai.com</u>',
+    '<span class="ok">✓</span> 240254 → <u>ops@hapag-agencia.com</u>',
+    '<span class="ok">✓</span> Planilha de controle atualizada: 4 processos = <b>BOOKING SOLICITADO</b>',
+    'Pronto! Assim que o armador confirmar, os bookings entram no sistema. 👍'
+  ]);};
+}
+
 function render(){
   renderNav();
   const m=$('#main');
   if(view==='market'){m.innerHTML=marketView();bindMarket();}
   else if(view==='intake'){m.innerHTML=intakeView();bindIntake();}
-  else{m.innerHTML=dashboardView(SECTORS.find(s=>s.id===view));bindDashboard();if(view==='fin')bindFinance();}
+  else{m.innerHTML=dashboardView(SECTORS.find(s=>s.id===view));bindDashboard();if(view==='fin')bindFinance();if(view==='ope')bindOperational();}
 }
 $('#closeDrawer').onclick=closeDrawer;$('#scrim').onclick=closeDrawer;
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeDrawer();});
