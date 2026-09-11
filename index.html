@@ -201,11 +201,24 @@
   @keyframes bulbBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
   .bulb-hint{font-size:11px;color:#E8A13A;font-family:var(--mono);margin:2px 0 2px;letter-spacing:.03em}
   .robot{width:150px;height:auto}
+  .robot-name{font-family:var(--display);font-weight:600;font-size:14.5px;color:var(--ice);margin-top:8px;letter-spacing:.03em;text-shadow:0 0 14px rgba(47,184,206,.4)}
+  .chalk-x{margin-left:auto;background:transparent;border:none;color:#cfe0d8;font-size:22px;line-height:1;cursor:pointer;padding:0 2px;transition:.15s}
+  .chalk-x:hover{color:#fff}
+  .ask-resp{display:flex;flex-direction:column;gap:8px;margin-top:14px}
+  .ask-you{align-self:flex-end;background:#2FB8CE;color:#04222b;border-radius:14px 14px 4px 14px;padding:9px 13px;font-size:12.5px;max-width:82%;font-family:var(--sans);line-height:1.4}
+  .ask-bot{align-self:flex-start;background:rgba(0,0,0,.3);border:1px solid rgba(234,243,238,.16);color:#eef5f0;border-radius:14px 14px 14px 4px;padding:9px 13px;font-size:12.5px;max-width:88%;font-family:var(--sans);line-height:1.45}
+  .ask-bot b{color:#8fe0b0}
+  .ask-bar{display:flex;gap:9px;align-items:center;margin-top:14px;border-top:1px dashed rgba(234,243,238,.28);padding-top:14px}
+  .ask-in{flex:1;background:rgba(0,0,0,.28);border:1px solid rgba(234,243,238,.25);border-radius:22px;padding:11px 16px;color:#eef5f0;font-family:var(--sans);font-size:13px}
+  .ask-in::placeholder{color:#8ca79a}
+  .ask-in:focus{outline:none;border-color:#2FB8CE}
+  .ask-send{background:#2FB8CE;color:#04222b;border:none;border-radius:50%;width:40px;height:40px;flex:0 0 auto;cursor:pointer;font-size:15px;transition:.15s}
+  .ask-send:hover{filter:brightness(1.08)}
   .robot-say{margin-top:8px;font-size:13.5px;color:var(--ink-2);max-width:440px}
   .lousa{margin:18px auto 0;max-width:720px;background:#22352b;border:11px solid #6b4a2b;border-radius:12px;padding:24px 28px;position:relative;
     box-shadow:inset 0 0 70px rgba(0,0,0,.45),0 16px 34px -14px #000;animation:boardIn .35s ease}
   @keyframes boardIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
-  .chalk-head{font-family:var(--display);font-weight:600;font-size:17px;color:#f2f8f4;margin-bottom:16px;border-bottom:1px dashed rgba(234,243,238,.28);padding-bottom:9px;letter-spacing:.01em}
+  .chalk-head{font-family:var(--display);font-weight:600;font-size:17px;color:#f2f8f4;margin-bottom:16px;border-bottom:1px dashed rgba(234,243,238,.28);padding-bottom:9px;letter-spacing:.01em;display:flex;align-items:center;gap:10px}
   .chalk-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:16px}
   .chalk-grid>div{background:rgba(0,0,0,.22);border:1px solid rgba(234,243,238,.14);border-radius:9px;padding:11px 12px}
   .chalk-grid span{font-size:11.5px;color:#a8c3b4;display:block;line-height:1.25;margin-bottom:4px}
@@ -688,11 +701,12 @@ function financeBrief(){
         <rect x="48" y="160" width="16" height="18" rx="5" fill="#17334a"/>
         <rect x="86" y="160" width="16" height="18" rx="5" fill="#17334a"/>
       </svg>
-      <div class="robot-say" id="robotSay">Olá! Sou o Agente Financeiro. Tenho a orientação do dia — clique na lâmpada.</div>
+      <div class="robot-name">⚓ Comandante Financeiro</div>
+      <div class="robot-say" id="robotSay">Olá! Sou o Comandante Financeiro. Tenho a orientação do dia — clique na lâmpada.</div>
     </div>
 
     <div class="lousa" id="finLousa" hidden>
-      <div class="chalk-head">Resumo financeiro do dia</div>
+      <div class="chalk-head">Resumo financeiro do dia<button class="chalk-x" id="finClose" aria-label="Fechar lousa">×</button></div>
       <div class="chalk-grid">
         <div><span>Saldo atual</span><b>US$ 1.284.500</b></div>
         <div><span>A pagar hoje</span><b>US$ 412.900</b></div>
@@ -702,6 +716,8 @@ function financeBrief(){
       <div class="chalk-rec">Com esse saldo, priorizar o fornecedor <u>Boi Sul</u> — boa reputação e agilidade na prontidão de carga. O processo <u>BR-2291</u> tem um <u>LOB de US$ 44.000</u> para a empresa, a receber em ~60 dias, contando prazo de booking, embarque e envio dos documentos.</div>
       <div class="chalk-q" id="chalkQ"><span>Deseja aplicar a orientação?</span><div class="chalk-actions"><button class="btn-yes" id="finYes">Sim, aplicar</button><button class="btn-no" id="finNo">Não</button></div></div>
       <div class="chalk-result" id="chalkResult" hidden></div>
+      <div class="ask-resp" id="finAskResp"></div>
+      <div class="ask-bar"><input class="ask-in" id="finAskIn" maxlength="160" placeholder="Escreva um pedido ao Comandante Financeiro…"><button class="ask-send" id="finAskSend" aria-label="Enviar">➤</button></div>
     </div>
   </section>`;
 }
@@ -729,10 +745,11 @@ function operationalScene(){
         <rect x="48" y="160" width="16" height="18" rx="5" fill="#17334a"/>
         <rect x="86" y="160" width="16" height="18" rx="5" fill="#17334a"/>
       </svg>
-      <div class="robot-say" id="opeRobotSay">Olá! Sou o Agente Operacional. Encontrei uma pendência de booking — clique na lâmpada.</div>
+      <div class="robot-name">⚓ Capitão Operacional</div>
+      <div class="robot-say" id="opeRobotSay">Olá! Sou o Capitão Operacional. Encontrei uma pendência de booking — clique na lâmpada.</div>
     </div>
     <div class="lousa" id="opeLousa" hidden>
-      <div class="chalk-head">Pendência operacional · booking</div>
+      <div class="chalk-head">Pendência operacional · booking<button class="chalk-x" id="opeClose" aria-label="Fechar lousa">×</button></div>
       <div class="chalk-msg">Ainda temos <b>4 processos sem booking</b> e não foi identificada a solicitação de booking:</div>
       <div class="chalk-grid">
         <div><span>sem booking</span><b>240154</b></div>
@@ -743,6 +760,8 @@ function operationalScene(){
       <div class="chalk-rec">Verifiquei que o fornecedor já posicionou a disponibilidade da carga. Posso disparar os e-mails solicitando o booking?</div>
       <div class="chalk-q" id="opeQ"><span>Deseja que eu solicite os bookings?</span><div class="chalk-actions"><button class="btn-yes" id="opeYes">Sim, solicitar</button><button class="btn-no" id="opeNo">Não</button></div></div>
       <div class="chalk-result" id="opeResult" hidden></div>
+      <div class="ask-resp" id="opeAskResp"></div>
+      <div class="ask-bar"><input class="ask-in" id="opeAskIn" maxlength="160" placeholder="Escreva um pedido ao Capitão Operacional…"><button class="ask-send" id="opeAskSend" aria-label="Enviar">➤</button></div>
     </div>
   </section>`;
 }
@@ -877,6 +896,10 @@ function bindFinance(){
     '<span class="ok">✓</span> E-mail enviado para a operadora <u>Ana</u>: pré-pagamento realizado antes do vencimento — pode dar sequência ao processo.',
     'Pronto! Saldo e contas atualizados. 👍'
   ]);};
+  const close=$('#finClose');if(close)close.onclick=()=>{lousa.hidden=true;const h=$('#bulbHint');if(h)h.style.visibility='visible';const rs=$('#robotSay');if(rs)rs.textContent='Olá! Sou o Comandante Financeiro. Tenho a orientação do dia — clique na lâmpada.';q.hidden=false;res.hidden=true;res.innerHTML='';const ar=$('#finAskResp');if(ar)ar.innerHTML='';};
+  const ai=$('#finAskIn'),asnd=$('#finAskSend'),ar=$('#finAskResp');
+  const fsub=()=>{const v=(ai.value||'').trim();if(!v)return;const u=document.createElement('div');u.className='ask-you';u.textContent=v;ar.appendChild(u);ai.value='';ar.scrollTop=ar.scrollHeight;setTimeout(()=>{const a=document.createElement('div');a.className='ask-bot';a.innerHTML='<b>Comandante Financeiro:</b> Recebido — vou providenciar e retorno com o andamento. 👍';ar.appendChild(a);ar.scrollTop=ar.scrollHeight;},380);};
+  if(asnd)asnd.onclick=fsub;if(ai)ai.addEventListener('keydown',e=>{if(e.key==='Enter')fsub();});
 }
 
 function bindOperational(){
@@ -895,6 +918,10 @@ function bindOperational(){
     '<span class="ok">✓</span> Planilha de controle atualizada: 4 processos = <b>BOOKING SOLICITADO</b>',
     'Pronto! Assim que o armador confirmar, os bookings entram no sistema. 👍'
   ]);};
+  const close=$('#opeClose');if(close)close.onclick=()=>{lousa.hidden=true;const h=$('#opeBulbHint');if(h)h.style.visibility='visible';const rs=$('#opeRobotSay');if(rs)rs.textContent='Olá! Sou o Capitão Operacional. Encontrei uma pendência de booking — clique na lâmpada.';q.hidden=false;res.hidden=true;res.innerHTML='';const ar=$('#opeAskResp');if(ar)ar.innerHTML='';};
+  const ai=$('#opeAskIn'),asnd=$('#opeAskSend'),ar=$('#opeAskResp');
+  const osub=()=>{const v=(ai.value||'').trim();if(!v)return;const u=document.createElement('div');u.className='ask-you';u.textContent=v;ar.appendChild(u);ai.value='';ar.scrollTop=ar.scrollHeight;setTimeout(()=>{const a=document.createElement('div');a.className='ask-bot';a.innerHTML='<b>Capitão Operacional:</b> Recebido — vou providenciar e retorno com o andamento. 👍';ar.appendChild(a);ar.scrollTop=ar.scrollHeight;},380);};
+  if(asnd)asnd.onclick=osub;if(ai)ai.addEventListener('keydown',e=>{if(e.key==='Enter')osub();});
 }
 
 function render(){
