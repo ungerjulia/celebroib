@@ -214,6 +214,18 @@
   .ask-in:focus{outline:none;border-color:#2FB8CE}
   .ask-send{background:#2FB8CE;color:#04222b;border:none;border-radius:50%;width:40px;height:40px;flex:0 0 auto;cursor:pointer;font-size:15px;transition:.15s}
   .ask-send:hover{filter:brightness(1.08)}
+  .post-talk{width:100%;max-width:560px;margin:14px auto 0;display:flex;flex-direction:column;gap:8px;text-align:left}
+  .post-talk .ship{opacity:0;animation:fadein .45s forwards;background:var(--panel);border:1px solid var(--line-soft);border-left:3px solid var(--green);border-radius:0 9px 9px 0;padding:9px 13px;font-size:12.5px;color:var(--ink-2)}
+  .post-talk .ship.pend{border-left-color:var(--amber)}
+  .post-talk .ship b{color:var(--ink);font-family:var(--mono)}
+  .post-talk .ship .st{font-family:var(--mono);font-size:11px}
+  .post-talk .ship.ok .st{color:#7fd6a5}.post-talk .ship.pend .st{color:#f0bd6e}
+  .ibanco{display:flex;align-items:center;gap:9px;margin-bottom:2px;color:var(--ink-2);font-size:12.5px;font-family:var(--display);font-weight:600}
+  .ibanco svg{width:34px;height:auto;flex:0 0 auto}
+  .talk-bubble{opacity:0;animation:fadein .5s forwards;font-size:12.5px;line-height:1.5;padding:10px 13px;border-radius:12px;max-width:90%;font-family:var(--sans)}
+  .talk-bubble.cmd{align-self:flex-end;background:#2FB8CE;color:#04222b;border-radius:14px 14px 4px 14px}
+  .talk-bubble.ib{align-self:flex-start;background:var(--panel);border:1px solid var(--line-soft);color:var(--ink);border-radius:14px 14px 14px 4px}
+  .talk-bubble.ib b{color:#8fe0b0}
   .robot-say{margin-top:8px;font-size:13.5px;color:var(--ink-2);max-width:440px}
   .lousa{margin:18px auto 0;max-width:720px;background:#22352b;border:11px solid #6b4a2b;border-radius:12px;padding:24px 28px;position:relative;
     box-shadow:inset 0 0 70px rgba(0,0,0,.45),0 16px 34px -14px #000;animation:boardIn .35s ease}
@@ -703,6 +715,7 @@ function financeBrief(){
       </svg>
       <div class="robot-name">⚓ Comandante Financeiro</div>
       <div class="robot-say" id="robotSay">Olá! Sou o Comandante Financeiro. Tenho a orientação do dia — clique na lâmpada.</div>
+      <div class="post-talk" id="finTalk"></div>
     </div>
 
     <div class="lousa" id="finLousa" hidden>
@@ -747,6 +760,7 @@ function operationalScene(){
       </svg>
       <div class="robot-name">⚓ Capitão Operacional</div>
       <div class="robot-say" id="opeRobotSay">Olá! Sou o Capitão Operacional. Encontrei uma pendência de booking — clique na lâmpada.</div>
+      <div class="post-talk" id="opeTalk"></div>
     </div>
     <div class="lousa" id="opeLousa" hidden>
       <div class="chalk-head">Pendência operacional · booking<button class="chalk-x" id="opeClose" aria-label="Fechar lousa">×</button></div>
@@ -896,7 +910,18 @@ function bindFinance(){
     '<span class="ok">✓</span> E-mail enviado para a operadora <u>Ana</u>: pré-pagamento realizado antes do vencimento — pode dar sequência ao processo.',
     'Pronto! Saldo e contas atualizados. 👍'
   ]);};
-  const close=$('#finClose');if(close)close.onclick=()=>{lousa.hidden=true;const h=$('#bulbHint');if(h)h.style.visibility='visible';const rs=$('#robotSay');if(rs)rs.textContent='Olá! Sou o Comandante Financeiro. Tenho a orientação do dia — clique na lâmpada.';q.hidden=false;res.hidden=true;res.innerHTML='';const ar=$('#finAskResp');if(ar)ar.innerHTML='';};
+  const close=$('#finClose');if(close)close.onclick=()=>{
+    lousa.hidden=true;q.hidden=false;res.hidden=true;res.innerHTML='';const ar=$('#finAskResp');if(ar)ar.innerHTML='';
+    const h=$('#bulbHint');if(h)h.style.visibility='visible';
+    const rs=$('#robotSay');if(rs)rs.textContent='Deixa eu chamar o Sargento IBanco pra ver as novidades…';
+    const t=$('#finTalk');if(!t)return;
+    t.innerHTML='<div class="ibanco"><svg viewBox="0 0 40 40" fill="none"><line x1="20" y1="6" x2="20" y2="2" stroke="#48B47C" stroke-width="2"/><circle cx="20" cy="1.6" r="2" fill="#48B47C"/><rect x="8" y="6" width="24" height="20" rx="6" fill="#17334a" stroke="#48B47C" stroke-width="2"/><circle cx="16" cy="16" r="2.4" fill="#48B47C"/><circle cx="24" cy="16" r="2.4" fill="#48B47C"/><rect x="12" y="28" width="16" height="9" rx="3" fill="#17334a" stroke="#48B47C" stroke-width="1.5"/></svg><span>Sargento IBanco</span></div>';
+    [['cmd','<b>Comandante:</b> IBanco, quais as novidades?'],
+     ['ib','<b>IBanco:</b> Comandante! Consegui <b>três reuniões</b> com bancos importantes interessados em investir na nossa nova linha de negócio: <b>Robótica</b>. 🚀'],
+     ['ib','<b>IBanco:</b> A <b>Independent Brazil</b> está entrando no radar de grandes startups pela nossa inteligência de mercado e visão aguçada de novas tendências.'],
+     ['ib','<b>IBanco:</b> E reforço: nosso time de agentes está executando muito bem as tarefas. 💪']
+    ].forEach((l,i)=>{const d=document.createElement('div');d.className='talk-bubble '+l[0];d.style.animationDelay=(i*0.9)+'s';d.innerHTML=l[1];t.appendChild(d);});
+  };
   const ai=$('#finAskIn'),asnd=$('#finAskSend'),ar=$('#finAskResp');
   const fsub=()=>{const v=(ai.value||'').trim();if(!v)return;const u=document.createElement('div');u.className='ask-you';u.textContent=v;ar.appendChild(u);ai.value='';ar.scrollTop=ar.scrollHeight;setTimeout(()=>{const a=document.createElement('div');a.className='ask-bot';a.innerHTML='<b>Comandante Financeiro:</b> Recebido — vou providenciar e retorno com o andamento. 👍';ar.appendChild(a);ar.scrollTop=ar.scrollHeight;},380);};
   if(asnd)asnd.onclick=fsub;if(ai)ai.addEventListener('keydown',e=>{if(e.key==='Enter')fsub();});
@@ -918,7 +943,19 @@ function bindOperational(){
     '<span class="ok">✓</span> Planilha de controle atualizada: 4 processos = <b>BOOKING SOLICITADO</b>',
     'Pronto! Assim que o armador confirmar, os bookings entram no sistema. 👍'
   ]);};
-  const close=$('#opeClose');if(close)close.onclick=()=>{lousa.hidden=true;const h=$('#opeBulbHint');if(h)h.style.visibility='visible';const rs=$('#opeRobotSay');if(rs)rs.textContent='Olá! Sou o Capitão Operacional. Encontrei uma pendência de booking — clique na lâmpada.';q.hidden=false;res.hidden=true;res.innerHTML='';const ar=$('#opeAskResp');if(ar)ar.innerHTML='';};
+  const close=$('#opeClose');if(close)close.onclick=()=>{
+    lousa.hidden=true;q.hidden=false;res.hidden=true;res.innerHTML='';const ar2=$('#opeAskResp');if(ar2)ar2.innerHTML='';
+    const h=$('#opeBulbHint');if(h)h.style.visibility='visible';
+    const rs=$('#opeRobotSay');if(rs)rs.textContent='Fechado! Segue o resumo dos embarques de hoje:';
+    const t=$('#opeTalk');if(!t)return;t.innerHTML='';
+    [['240120','China','ok','no prazo'],
+     ['240133','Oriente Médio','ok','no prazo'],
+     ['240145','Europa','pend','booking não confirmado pelo armador'],
+     ['240150','EUA','ok','antecipado 1 dia'],
+     ['240151','China','pend','documentação sanitária em análise'],
+     ['240158','China','ok','liberado após o booking solicitado hoje']
+    ].forEach((s,i)=>{const d=document.createElement('div');d.className='ship '+s[2];d.style.animationDelay=(i*0.6)+'s';d.innerHTML=`<b>${s[0]}</b> · ${s[1]} · <span class="st">${s[2]==='ok'?'✓ embarcou':'▲ não embarcou'}</span> · ${s[3]}`;t.appendChild(d);});
+  };
   const ai=$('#opeAskIn'),asnd=$('#opeAskSend'),ar=$('#opeAskResp');
   const osub=()=>{const v=(ai.value||'').trim();if(!v)return;const u=document.createElement('div');u.className='ask-you';u.textContent=v;ar.appendChild(u);ai.value='';ar.scrollTop=ar.scrollHeight;setTimeout(()=>{const a=document.createElement('div');a.className='ask-bot';a.innerHTML='<b>Capitão Operacional:</b> Recebido — vou providenciar e retorno com o andamento. 👍';ar.appendChild(a);ar.scrollTop=ar.scrollHeight;},380);};
   if(asnd)asnd.onclick=osub;if(ai)ai.addEventListener('keydown',e=>{if(e.key==='Enter')osub();});
