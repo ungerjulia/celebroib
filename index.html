@@ -192,6 +192,32 @@
   .sig-card p{font-size:12.5px;color:var(--ink-2);line-height:1.5}
   .sig-card .src{font-size:10.5px;color:var(--ink-3);font-family:var(--mono);margin-top:9px}
 
+  /* ---------- AGENTE FINANCEIRO ---------- */
+  .fin-brief{background:linear-gradient(180deg,rgba(19,42,59,.92),var(--panel));border:1px solid var(--line);border-radius:16px;padding:20px 22px;margin-bottom:22px;position:relative;overflow:hidden}
+  .fin-brief::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:linear-gradient(180deg,#D2A24E,var(--ice))}
+  .fb-head{display:flex;align-items:center;gap:14px;margin-bottom:16px}
+  .fb-head .avatar{margin:0;width:48px;height:48px}
+  .fb-head h3{font-family:var(--display);font-size:16px;font-weight:600}
+  .fb-sub{font-size:11.5px;color:var(--ink-3);font-family:var(--mono);margin-top:2px}
+  .fb-live{margin-left:auto;display:inline-flex;align-items:center;gap:7px;font-size:11px;color:var(--ink-2);font-family:var(--mono);border:1px solid var(--line);padding:5px 10px;border-radius:99px}
+  .fb-live .pulse{width:7px;height:7px;border-radius:50%}
+  .fb-figs{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px}
+  .fig{background:var(--harbor-2);border:1px solid var(--line-soft);border-radius:11px;padding:12px 13px}
+  .fig span{font-size:11px;color:var(--ink-2)}
+  .fig b{display:block;font-family:var(--mono);font-size:19px;margin-top:6px;color:var(--ink);letter-spacing:-.02em}
+  .fig.warn b{color:#f0bd6e}.fig.good b{color:#7fd6a5}
+  .fb-cols{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
+  .fb-list{background:var(--harbor-2);border:1px solid var(--line-soft);border-radius:11px;padding:14px 15px}
+  .fb-list h4{font-family:var(--display);font-size:12.5px;margin-bottom:8px;color:var(--ink-2);font-weight:600}
+  .pl-row{display:flex;justify-content:space-between;gap:10px;padding:8px 0;border-top:1px solid var(--line-soft);font-size:12.5px;color:var(--ink-2)}
+  .pl-row:first-of-type{border-top:none}
+  .pl-row span:last-child{font-family:var(--mono);color:var(--ink);white-space:nowrap}
+  .fb-speech{display:flex;gap:13px;align-items:flex-start;background:rgba(210,162,78,.08);border:1px solid rgba(210,162,78,.3);border-radius:12px;padding:15px 16px}
+  .fb-speech .avatar{margin:0;width:40px;height:40px;flex:0 0 auto}
+  .fb-speech p{font-size:13px;color:var(--ink);line-height:1.6}
+  .fb-speech b{color:#e8c37e}
+  @media(max-width:900px){.fb-figs{grid-template-columns:repeat(2,1fr)}.fb-cols{grid-template-columns:1fr}}
+
   /* ---------- MERCADO: abas + produtos + oferta ---------- */
   .mtabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px;border-bottom:1px solid var(--line-soft);padding-bottom:14px}
   .mtab{background:var(--panel);border:1px solid var(--line);color:var(--ink-2);font-family:var(--display);font-weight:600;font-size:13px;padding:9px 18px;border-radius:10px;cursor:pointer;transition:.15s}
@@ -536,7 +562,7 @@ const MARKETCATS={
       {name:'Peito de frango griller',price:'US$ 2.640/t',trend:'+0,9%',supplier:{name:'Sulave',country:'BR',price:'US$ 2.410/t',lead:'11 dias'}},
       {name:'Pernil suíno sem osso',price:'US$ 3.020/t',trend:'-0,6%',supplier:{name:'Suíno Vale',country:'BR',price:'US$ 2.820/t',lead:'13 dias'}}],
     clients:[{name:'Qingdao Foods',country:'China',last:'há 3 semanas'},{name:'Al Rahma Trading',country:'EAU',last:'há 1 mês'},{name:'Hong Kong Meat Co.',country:'Hong Kong',last:'há 12 dias'},{name:'Cairo Import Group',country:'Egito',last:'há 2 meses'}],
-    signals:[{t:'China amplia habilitação de plantas de bovino',imp:'pos',lab:'oportunidade',p:'Novas plantas liberadas ampliam a janela de exportação de dianteiro e traseiro.',src:'GACC · há 2 dias'},{t:'Custo de ração pressiona oferta de frango',imp:'neu',lab:'atenção',p:'Alta do farelo de soja eleva o custo e pode comprimir margem no frango.',src:'Mercado · hoje'}]},
+    signals:[{t:'Dianteiro recua com maior oferta de abate',imp:'neg',lab:'preço ↓',p:'Aumento do volume de abate pressiona o preço do dianteiro bovino nas próximas semanas.',src:'Mercado · hoje'},{t:'Oferta de frango cresce com ração mais barata',imp:'neu',lab:'oferta ↑',p:'Queda no custo do farelo de soja amplia a oferta de frango e tende a comprimir a margem.',src:'Setor · há 2 dias'},{t:'China aquece demanda por proteína bovina',imp:'pos',lab:'demanda ↑',p:'Novas habilitações de plantas elevam a demanda asiática por dianteiro e traseiro.',src:'GACC · há 2 dias'}]},
 
   seafood:{label:'Seafood',line:[3200,3250,3280,3300,3350,3360,3390,3400],lineLabel:'Filé de tilápia · US$/t · 8 meses',
     kpis:[{lab:'Filé de tilápia',val:'3.400',unit:'US$/t',d:'+1,9%',dir:'up',cls:'good'},{lab:'Camarão vannamei',val:'6.100',unit:'US$/t',d:'+3,2%',dir:'up',cls:'good'},{lab:'Sardinha congelada',val:'1.250',unit:'US$/t',d:'-0,4%',dir:'down',cls:''},{lab:'Frete reefer Ásia',val:'3.950',unit:'US$',d:'+4,2%',dir:'down',cls:'bad'}],
@@ -547,7 +573,7 @@ const MARKETCATS={
       {name:'Polvo congelado',price:'US$ 8.200/t',trend:'+2,1%',supplier:{name:'Oceano Sul',country:'BR',price:'US$ 7.500/t',lead:'15 dias'}},
       {name:'Pescada amarela',price:'US$ 2.900/t',trend:'+0,7%',supplier:{name:'Mar Aberto',country:'BR',price:'US$ 2.650/t',lead:'11 dias'}}],
     clients:[{name:'Ocean Fresh USA',country:'EUA',last:'há 2 semanas'},{name:'Tokyo Marine Foods',country:'Japão',last:'há 1 mês'},{name:'Iberia Seafood',country:'Espanha',last:'há 3 semanas'}],
-    signals:[{t:'Demanda de camarão sobe nos EUA',imp:'pos',lab:'oportunidade',p:'Recuperação do food service americano aquece a demanda por camarão.',src:'Mercado · hoje'},{t:'Alta do frete reefer pressiona pescado',imp:'neg',lab:'custo ↑',p:'Tarifa spot elevada reduz a margem nas rotas de exportação de pescado.',src:'Índice · hoje'}]},
+    signals:[{t:'Sardinha em queda com safra forte',imp:'neg',lab:'preço ↓',p:'Safra abundante derruba o preço da sardinha congelada no mercado interno e externo.',src:'Mercado · hoje'},{t:'Oferta de tilápia cresce no Sul',imp:'neu',lab:'oferta ↑',p:'Expansão da produção de tilápia aumenta a disponibilidade para exportação.',src:'Setor · esta semana'},{t:'Demanda de camarão sobe nos EUA',imp:'pos',lab:'demanda ↑',p:'Recuperação do food service americano aquece a demanda por camarão vannamei.',src:'Mercado · hoje'}]},
 
   biofuels:{label:'Biofuels',line:[900,910,930,940,955,960,970,980],lineLabel:'Sebo bovino · US$/t · 8 meses',
     kpis:[{lab:'Sebo bovino (tallow)',val:'980',unit:'US$/t',d:'+2,6%',dir:'up',cls:'good'},{lab:'Óleo de soja bruto',val:'1.040',unit:'US$/t',d:'+1,2%',dir:'up',cls:''},{lab:'UCO',val:'860',unit:'US$/t',d:'+3,4%',dir:'up',cls:'good'},{lab:'Etanol',val:'640',unit:'US$/m³',d:'-0,8%',dir:'down',cls:'warn'}],
@@ -558,7 +584,7 @@ const MARKETCATS={
       {name:'Óleo de palma',price:'US$ 1.120/t',trend:'+0,9%',supplier:{name:'Palma Norte',country:'BR',price:'US$ 1.020/t',lead:'18 dias'}},
       {name:'Etanol',price:'US$ 640/m³',trend:'-0,8%',supplier:{name:'BioEtanol MT',country:'BR',price:'US$ 590/m³',lead:'10 dias'}}],
     clients:[{name:'EuroBiodiesel GmbH',country:'Alemanha',last:'há 1 mês'},{name:'Rotterdam Green Fuels',country:'Holanda',last:'há 3 semanas'},{name:'California Renewables',country:'EUA',last:'há 2 meses'}],
-    signals:[{t:'Mandato de biodiesel eleva demanda por feedstock',imp:'pos',lab:'oportunidade',p:'Aumento da mistura obrigatória pressiona a demanda por sebo e UCO.',src:'Regulatório · esta semana'},{t:'UE aperta rastreabilidade de UCO',imp:'neu',lab:'compliance',p:'Novas exigências de origem para óleo de cozinha usado exportado à Europa.',src:'UE · há 1 semana'}]},
+    signals:[{t:'Óleo de palma pressiona preços do setor',imp:'neg',lab:'preço ↓',p:'Maior oferta de óleo de palma puxa para baixo a referência do feedstock mais barato.',src:'Mercado · hoje'},{t:'Coleta de UCO cresce no país',imp:'neu',lab:'oferta ↑',p:'Ampliação da coleta de óleo de cozinha usado aumenta a oferta para biodiesel.',src:'Setor · há 1 semana'},{t:'Mandato de mistura eleva demanda por sebo',imp:'pos',lab:'demanda ↑',p:'Aumento da mistura obrigatória de biodiesel aquece a demanda por sebo e UCO.',src:'Regulatório · esta semana'}]},
 
   feedmeal:{label:'Feed Meal',line:[1590,1610,1600,1630,1650,1655,1670,1680],lineLabel:'Farinha de peixe · US$/t · 8 meses',
     kpis:[{lab:'Farinha de peixe',val:'1.680',unit:'US$/t',d:'+2,1%',dir:'up',cls:'warn'},{lab:'Farelo de soja',val:'480',unit:'US$/t',d:'+1,5%',dir:'up',cls:''},{lab:'Farinha vísceras aves',val:'720',unit:'US$/t',d:'+0,8%',dir:'up',cls:''},{lab:'Farinha carne e ossos',val:'560',unit:'US$/t',d:'-0,3%',dir:'down',cls:''}],
@@ -569,7 +595,7 @@ const MARKETCATS={
       {name:'Farinha de carne e ossos',price:'US$ 560/t',trend:'-0,3%',supplier:{name:'RenderCo',country:'BR',price:'US$ 500/t',lead:'13 dias'}},
       {name:'Farinha de penas',price:'US$ 610/t',trend:'+1,0%',supplier:{name:'Sulave',country:'BR',price:'US$ 540/t',lead:'12 dias'}}],
     clients:[{name:'Vietnam Aqua Feed',country:'Vietnã',last:'há 2 semanas'},{name:'Ecuador Shrimp Feed',country:'Equador',last:'há 1 mês'},{name:'Norsk Fôr AS',country:'Noruega',last:'há 3 semanas'}],
-    signals:[{t:'Aquicultura asiática puxa farinha de peixe',imp:'pos',lab:'oportunidade',p:'Expansão da piscicultura na Ásia sustenta preços firmes da fish meal.',src:'Mercado · hoje'},{t:'El Niño afeta captura de anchoveta',imp:'neu',lab:'oferta',p:'Variação climática no Pacífico pode reduzir a oferta global de farinha de peixe.',src:'Clima · esta semana'}]},
+    signals:[{t:'Farelo de soja recua com supersafra',imp:'neg',lab:'preço ↓',p:'Colheita recorde de soja pressiona o preço do farelo de soja para baixo.',src:'Mercado · hoje'},{t:'Oferta de farinha de vísceras cresce',imp:'neu',lab:'oferta ↑',p:'Maior abate de aves amplia a oferta de farinha de vísceras no mercado.',src:'Setor · há 3 dias'},{t:'Aquicultura asiática puxa fish meal',imp:'pos',lab:'demanda ↑',p:'Expansão da piscicultura na Ásia sustenta a demanda firme por farinha de peixe.',src:'Mercado · hoje'}]},
 
   import:{label:'Import',line:[8800,8900,8850,9000,9100,9050,9150,9200],lineLabel:'Salmão fresco · US$/t · 8 meses',
     kpis:[{lab:'Salmão fresco (Chile)',val:'9.200',unit:'US$/t',d:'+2,8%',dir:'up',cls:'good'},{lab:'Bacalhau (Noruega)',val:'12.400',unit:'US$/t',d:'+1,3%',dir:'up',cls:''},{lab:'USD / BRL',val:'5,38',unit:'',d:'+0,6%',dir:'up',cls:'good'},{lab:'Merluza (Argentina)',val:'3.100',unit:'US$/t',d:'-0,5%',dir:'down',cls:''}],
@@ -580,7 +606,7 @@ const MARKETCATS={
       {name:'Camarão (Equador)',price:'US$ 5.900/t',trend:'+1,7%',supplier:{name:'Ecuador Shrimp Co.',country:'Equador',price:'US$ 5.400/t',lead:'16 dias'}},
       {name:'Atum congelado',price:'US$ 4.700/t',trend:'+0,6%',supplier:{name:'Pacific Tuna',country:'Peru',price:'US$ 4.300/t',lead:'18 dias'}}],
     clients:[{name:'Distribuidor SP · mercado interno',country:'BR',last:'há 2 semanas'},{name:'Rede Atacado Sul',country:'BR',last:'há 1 mês'},{name:'Food Service RJ',country:'BR',last:'há 3 semanas'}],
-    signals:[{t:'Real valorizado melhora janela de importação',imp:'pos',lab:'oportunidade',p:'Câmbio favorável reduz o custo de importar salmão e bacalhau para revenda interna.',src:'Mercado · hoje'},{t:'Noruega ajusta cotas de bacalhau',imp:'neu',lab:'oferta',p:'Revisão de cotas pode elevar o preço do bacalhau nos próximos meses.',src:'Noruega · há 1 semana'}]},
+    signals:[{t:'Merluza recua com câmbio e maior oferta',imp:'neg',lab:'preço ↓',p:'Maior oferta argentina e câmbio favorável reduzem o custo de importação da merluza.',src:'Mercado · hoje'},{t:'Noruega amplia cota de bacalhau',imp:'neu',lab:'oferta ↑',p:'Revisão de cotas aumenta a oferta de bacalhau para os próximos meses.',src:'Noruega · há 1 semana'},{t:'Demanda interna por salmão aquece',imp:'pos',lab:'demanda ↑',p:'Câmbio favorável e food service aquecem a demanda interna por salmão importado.',src:'Mercado · hoje'}]},
 };
 const LINE=[41,39,42,37,36,40,38,38],LTARGET=35,LLAB=['fev','mar','abr','mai','jun','jul','ago','set'];
 const MLINE=[2010,2035,1990,2080,2110,2095,2130,2140],MLAB=['fev','mar','abr','mai','jun','jul','ago','set'];
@@ -629,9 +655,34 @@ function barSVG(){
 }
 
 /* ---------- VIEWS ---------- */
+function financeBrief(){
+  return `<section class="fin-brief fade">
+    <div class="fb-head">${avatar('coin','#D2A24E')}<div><h3>Agente Financeiro</h3><div class="fb-sub">resumo do dia · atualizado agora</div></div><span class="fb-live"><span class="pulse" style="background:#48B47C"></span> ao vivo</span></div>
+    <div class="fb-figs">
+      <div class="fig"><span>Saldo atual da conta</span><b>US$ 1.284.500</b></div>
+      <div class="fig warn"><span>A pagar hoje</span><b>US$ 412.900</b></div>
+      <div class="fig good"><span>A receber</span><b>US$ 765.000</b></div>
+      <div class="fig"><span>Saldo livre p/ necessidade</span><b>US$ 871.600</b></div>
+    </div>
+    <div class="fb-cols">
+      <div class="fb-list"><h4>Processos a pagar hoje</h4>
+        <div class="pl-row"><span>Fornecedor Boi Sul · booking BR-2291</span><span>US$ 312.000</span></div>
+        <div class="pl-row"><span>Frete reefer · MSC</span><span>US$ 88.500</span></div>
+        <div class="pl-row"><span>Despachante aduaneiro</span><span>US$ 12.400</span></div>
+      </div>
+      <div class="fb-list"><h4>Valores a receber</h4>
+        <div class="pl-row"><span>Qingdao Foods · INV-8842 · em 12 dias</span><span>US$ 540.000</span></div>
+        <div class="pl-row"><span>Al Rahma Trading · em 30 dias</span><span>US$ 225.000</span></div>
+      </div>
+    </div>
+    <div class="fb-speech">${avatar('coin','#D2A24E')}<p>Com esse saldo, podemos priorizar o fornecedor <b>Boi Sul</b>, que tem boa reputação e agilidade na prontidão de carga. Lembrando que este processo tem um <b>LOB interessante de US$ 44.000</b> para a empresa, que receberemos em ~60 dias — contando prazo de booking, embarque e envio dos documentos.</p></div>
+  </section>`;
+}
 function dashboardView(sec){
+  const brief = sec.id==='fin' ? financeBrief() : '';
   return `<header class="topbar fade"><div><div class="title">${sec.title}</div><div class="desc">${sec.desc}</div></div>
     <span class="live"><span class="pulse"></span> operação ativa</span><span class="proto">protótipo · dados ilustrativos</span></header>
+    ${brief}
     <section class="kpis fade d1">${kpiHTML(KPIS)}</section>
     <section class="grid2 fade d2">
       <div class="card"><div class="head"><h3>Transit time médio — rota China</h3><span class="hint">dias · 8 meses</span></div>${lineSVG(LINE,LLAB,LTARGET)}
@@ -656,7 +707,7 @@ function marketView(){
     </section>
     <section class="fade d3"><div class="agents-head"><h2>Produtos em alta — ${cat.label}</h2><span class="ctx">5 em alta · clique para gerar oferta</span></div>
       <div class="prods">${prods}</div></section>
-    <section class="fade"><div class="agents-head"><h2>Sinais de mercado</h2><span class="ctx">${cat.signals.length} sinais</span></div>
+    <section class="fade"><div class="agents-head"><h2>Notícias de mercado — ${cat.label}</h2><span class="ctx">${cat.signals.length} notícias · preço · oferta · demanda</span></div>
       <div class="signals">${cat.signals.map(s=>`<div class="sig-card ${s.imp}"><div class="sh"><h4>${s.t}</h4><span class="imp ${s.imp}">${s.lab}</span></div><p>${s.p}</p><div class="src">◈ ${s.src}</div></div>`).join('')}</div></section>`;
 }
 function bindMarket(){
