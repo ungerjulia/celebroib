@@ -754,29 +754,36 @@ render();
 const landing=$('#landing'), appShell=$('#appShell');
 let netRAF=null, metricTimer=null;
 
-/* fundo estilo Matrix — chuva de código (canvas) */
+/* fundo estilo Matrix — chuva de código lenta e legível (canvas) */
 function startNet(){
   const cv=$('#net-bg'); if(!cv)return; const ctx=cv.getContext('2d');
   const glyphs='アカサタナハマヤラワ0123456789ABCDEF<>/{}[]$#*=+'.split('');
-  const fs=15; let W,H,cols,drops;
-  function resize(){W=cv.width=cv.offsetWidth;H=cv.height=cv.offsetHeight;cols=Math.ceil(W/fs);drops=Array(cols).fill(0).map(()=>Math.random()*-40);}
+  const fs=16; let W,H,cols,drops,chars,last=0;
+  function resize(){
+    W=cv.width=cv.offsetWidth;H=cv.height=cv.offsetHeight;cols=Math.ceil(W/fs);
+    drops=Array(cols).fill(0).map(()=>Math.random()*-40);
+    chars=Array(cols).fill(0).map(()=>glyphs[(Math.random()*glyphs.length)|0]);
+  }
   resize(); cv._resize=resize; window.addEventListener('resize',cv._resize);
   ctx.fillStyle='#0C1A26';ctx.fillRect(0,0,W,H);
-  function draw(){
-    ctx.fillStyle='rgba(12,26,38,0.10)';ctx.fillRect(0,0,W,H);
+  function draw(t){
+    netRAF=requestAnimationFrame(draw);
+    if(t-last<95){return;}            // avança ~10x por segundo (bem mais lento)
+    last=t;
+    ctx.fillStyle='rgba(12,26,38,0.16)';ctx.fillRect(0,0,W,H);
     ctx.font=fs+'px "IBM Plex Mono",monospace';
     for(let i=0;i<cols;i++){
+      if(Math.random()<0.25) chars[i]=glyphs[(Math.random()*glyphs.length)|0]; // troca o glifo raramente
       const x=i*fs, y=drops[i]*fs;
-      ctx.fillStyle='rgba(200,214,224,0.75)';
-      ctx.fillText(glyphs[(Math.random()*glyphs.length)|0],x,y);
-      ctx.fillStyle='rgba(120,140,155,0.28)';
-      ctx.fillText(glyphs[(Math.random()*glyphs.length)|0],x,y-fs);
-      if(y>H && Math.random()>0.975) drops[i]=Math.random()*-20;
-      drops[i]+=0.55;
+      ctx.fillStyle='rgba(210,222,232,0.8)';
+      ctx.fillText(chars[i],x,y);
+      ctx.fillStyle='rgba(120,140,155,0.25)';
+      ctx.fillText(chars[i],x,y-fs);
+      if(y>H && Math.random()>0.97) drops[i]=Math.random()*-20;
+      drops[i]+=1;                     // uma linha por passo (~10 linhas/s)
     }
-    netRAF=requestAnimationFrame(draw);
   }
-  draw();
+  netRAF=requestAnimationFrame(draw);
 }
 function stopNet(){if(netRAF)cancelAnimationFrame(netRAF);netRAF=null;}
 
