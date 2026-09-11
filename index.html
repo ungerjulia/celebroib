@@ -234,6 +234,12 @@
   .msg.cmd .bubble{background:#2FB8CE;color:#04222b;border-radius:14px 14px 4px 14px}
   .msg.ib .bubble{background:var(--panel);border:1px solid var(--line-soft);color:var(--ink);border-radius:14px 14px 14px 4px}
   .msg.ib .bubble b{color:#8fe0b0}
+  .head-bubble{position:absolute;top:10px;left:calc(100% + 16px);width:250px;background:var(--panel);border:1px solid #2b4a3f;border-radius:14px;padding:12px 15px;font-size:13px;line-height:1.5;color:var(--ink);text-align:left;box-shadow:0 10px 28px -12px #000;opacity:0;transform:translateX(-6px);transition:opacity .3s,transform .3s;z-index:5}
+  .head-bubble.show{opacity:1;transform:none}
+  .head-bubble::before{content:"";position:absolute;left:-10px;top:22px;width:0;height:0;border:10px solid transparent;border-right-color:var(--panel);border-left:0}
+  .head-bubble .who{display:block;font-size:10.5px;font-family:var(--mono);color:#8fe0b0;margin-bottom:5px}
+  .head-bubble b{color:#8fe0b0}
+  @media(max-width:900px){.head-bubble{position:static;left:auto;top:auto;width:auto;max-width:280px;margin:12px auto 0;transform:none}.head-bubble::before{display:none}}
   .robot-say{margin-top:8px;font-size:13.5px;color:var(--ink-2);max-width:440px}
   .lousa{margin:18px auto 0;max-width:720px;background:#22352b;border:11px solid #6b4a2b;border-radius:12px;padding:24px 28px;position:relative;
     box-shadow:inset 0 0 70px rgba(0,0,0,.45),0 16px 34px -14px #000;animation:boardIn .35s ease}
@@ -745,6 +751,7 @@ function financeBrief(){
             <rect x="86" y="160" width="16" height="18" rx="5" fill="#17334a"/>
           </svg>
           <div class="robot-name rn-ib">Sargento IBanco</div>
+          <div class="head-bubble" id="ibBubble"></div>
         </div>
       </div>
       <div class="robot-say" id="robotSay">Olá! Sou o Comandante Financeiro. Tenho a orientação do dia — clique na lâmpada.</div>
@@ -947,14 +954,13 @@ function bindFinance(){
     lousa.hidden=true;q.hidden=false;res.hidden=true;res.innerHTML='';const ar=$('#finAskResp');if(ar)ar.innerHTML='';
     const h=$('#bulbHint');if(h)h.style.visibility='visible';
     const rs=$('#robotSay');if(rs)rs.textContent='Deixa eu chamar o Sargento IBanco pra ver as novidades…';
-    const t=$('#finTalk');if(!t)return;
     const col=$('#ibancoCol');if(col)col.classList.remove('hide');
-    t.innerHTML='';
-    const falas=[['cmd','IBanco, quais as novidades?'],
-     ['ib','Comandante! Consegui <b>três reuniões</b> com bancos importantes interessados em investir na nossa nova linha de negócio: <b>Robótica</b>. 🚀'],
-     ['ib','A <b>Independent Brazil</b> está entrando no radar de grandes startups pela nossa inteligência de mercado e visão aguçada de novas tendências.'],
-     ['ib','E reforço: nosso time de agentes está executando muito bem as tarefas. 💪']];
-    let fi=0;(function nextFala(){if(fi>=falas.length)return;const l=falas[fi++];const m=document.createElement('div');m.className='msg '+l[0];m.innerHTML='<span class="who">'+(l[0]==='cmd'?'Comandante':'IBanco')+'</span><span class="bubble">'+l[1]+'</span>';t.appendChild(m);m.scrollIntoView({behavior:'smooth',block:'nearest'});setTimeout(nextFala,1100);})();
+    const rs2=$('#robotSay');if(rs2)rs2.innerHTML='<b>Comandante:</b> IBanco, quais as novidades?';
+    const bubble=$('#ibBubble');if(!bubble)return;
+    const falas=['Comandante! Consegui <b>três reuniões</b> com bancos importantes interessados em investir na nossa nova linha de negócio: <b>Robótica</b>. 🚀',
+      'A <b>Independent Brazil</b> está entrando no radar de grandes startups pela nossa inteligência de mercado e visão aguçada de novas tendências.',
+      'E reforço: nosso time de agentes está executando muito bem as tarefas. 💪'];
+    let bi=0;(function cycle(){bubble.classList.remove('show');setTimeout(()=>{bubble.innerHTML='<span class="who">Sargento IBanco</span>'+falas[bi];bubble.classList.add('show');bi++;if(bi<falas.length)setTimeout(cycle,2800);},280);})();
   };
   const ai=$('#finAskIn'),asnd=$('#finAskSend'),ar=$('#finAskResp');
   const fsub=()=>{const v=(ai.value||'').trim();if(!v)return;const u=document.createElement('div');u.className='ask-you';u.textContent=v;ar.appendChild(u);ai.value='';ar.scrollTop=ar.scrollHeight;setTimeout(()=>{const a=document.createElement('div');a.className='ask-bot';a.innerHTML='<b>Comandante Financeiro:</b> Recebido — vou providenciar e retorno com o andamento. 👍';ar.appendChild(a);ar.scrollTop=ar.scrollHeight;},380);};
